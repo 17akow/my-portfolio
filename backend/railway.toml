@@ -15,5 +15,3 @@
   healthcheckTimeout = 30
   restartPolicyType = "always"
 
-[service]
-  port = 8000
