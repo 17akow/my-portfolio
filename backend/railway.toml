@@ -1,7 +1,19 @@
 [build]
-builder = "nixpacks"
+  builder = "nixpacks"
+  buildCommand = "pip install --no-cache-dir -r requirements.txt"
+  # ─────────────────────────────────────────────
+  # Monorepo root directory for Railway:
+  # In the Railway dashboard, set
+  #   Root Directory = backend
+  # This tells Railway to look here for
+  # requirements.txt and app/
+  # ─────────────────────────────────────────────
 
 [deploy]
-startCommand = "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
-healthcheckTimeout = 60
-restartPolicyType = "always"
+  startCommand = "uvicorn app.main:app --host 0.0.0.0 --port $PORT --proxy-headers --forwarded-allow-ips '*'"
+  healthcheckPath = "/health"
+  healthcheckTimeout = 30
+  restartPolicyType = "always"
+
+[service]
+  port = 8000

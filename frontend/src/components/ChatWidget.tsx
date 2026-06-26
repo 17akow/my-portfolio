@@ -24,6 +24,15 @@ export default function ChatWidget() {
     if (open) inputRef.current?.focus();
   }, [open]);
 
+  useEffect(() => {
+    if (!open) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [open]);
+
   const handleSend = () => {
     const text = input.trim();
     if (!text || sending) return;
@@ -60,6 +69,7 @@ export default function ChatWidget() {
               </div>
               <button
                 onClick={() => setOpen(false)}
+                aria-label="Close chat"
                 className="rounded-lg p-1.5 text-gray-500 transition-colors hover:bg-white/5 hover:text-gray-300"
               >
                 <HiX size={18} />

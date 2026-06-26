@@ -1,3 +1,4 @@
+from contextlib import asynccontextmanager
 import logging
 
 from fastapi import FastAPI
@@ -13,20 +14,41 @@ logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
 )
 
-Base.metadata.create_all(bind=engine)
+logger = logging.getLogger(__name__)
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    logger.info("Starting up — creating database tables...")
+    Base.metadata.create_all(bind=engine)
+    logger.info(f"CORS origins allowed: {settings.cors_origins}")
+    yield
+    logger.info("Shutting down...")
+
 
 app = FastAPI(
     title="Portfolio API",
     description="IT Professional Portfolio with AI Chat Assistant",
     version="1.0.0",
+    lifespan=lifespan,
 )
+
+origins = [
+    origin.strip()
+    for origin in settings.cors_origins.split(",")
+    if origin.strip()
+]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[origin.strip() for origin in settings.cors_origins.split(",") if origin.strip()],
+    allow_origins=origins or ["*"],
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=[
+        "Content-Type",
+        "Authorization",
+        "X-Requested-With",
+    ],
 )
 
 app.include_router(profile.router)

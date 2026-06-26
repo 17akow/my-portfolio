@@ -30,22 +30,27 @@ export default function Hero() {
   const currentTitle = TYPING_TITLES[titleIndex] ?? "";
 
   useEffect(() => {
-    const timeout = setTimeout(
-      () => {
-        if (!deleting && charIndex < currentTitle.length) {
-          setCharIndex((i) => i + 1);
-        } else if (!deleting && charIndex === currentTitle.length) {
-          setTimeout(() => setDeleting(true), 1500);
-        } else if (deleting && charIndex > 0) {
-          setCharIndex((i) => i - 1);
-        } else if (deleting && charIndex === 0) {
-          setDeleting(false);
-          setTitleIndex((i) => (i + 1) % TYPING_TITLES.length);
-        }
-      },
-      deleting ? 30 : 60
-    );
-    return () => clearTimeout(timeout);
+    let pause: ReturnType<typeof setTimeout> | null = null;
+
+    const tick = () => {
+      if (!deleting && charIndex < currentTitle.length) {
+        setCharIndex((i) => i + 1);
+      } else if (!deleting && charIndex === currentTitle.length) {
+        pause = setTimeout(() => setDeleting(true), 1500);
+      } else if (deleting && charIndex > 0) {
+        setCharIndex((i) => i - 1);
+      } else if (deleting && charIndex === 0) {
+        setDeleting(false);
+        setTitleIndex((i) => (i + 1) % TYPING_TITLES.length);
+      }
+    };
+
+    const timeout = setTimeout(tick, deleting ? 30 : 60);
+
+    return () => {
+      clearTimeout(timeout);
+      if (pause) clearTimeout(pause);
+    };
   }, [charIndex, deleting, titleIndex, currentTitle.length]);
 
   return (

@@ -1,0 +1,3 @@
+# Dev requirements — loose pins for local Python compatibility
+-r requirements.txt
+ruff>=0.8.0

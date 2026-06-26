@@ -73,7 +73,14 @@ export default function Skills() {
                             {meta.label}
                           </span>
                         </div>
-                        <div className="h-2 overflow-hidden rounded-full bg-white/5">
+                        <div
+                          className="h-2 overflow-hidden rounded-full bg-white/5"
+                          role="progressbar"
+                          aria-valuenow={skill.proficiency}
+                          aria-valuemin={1}
+                          aria-valuemax={5}
+                          aria-label={`${skill.name}: ${meta.label}`}
+                        >
                           <motion.div
                             initial={{ width: 0 }}
                             whileInView={{ width: `${skill.proficiency * 20}%` }}
