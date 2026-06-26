@@ -1,7 +1,15 @@
+import os
+
 from sqlalchemy import create_engine, event
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
 from app.config import settings
+
+if settings.database_url.startswith("sqlite"):
+    db_path = settings.database_url.removeprefix("sqlite:///")
+    db_dir = os.path.dirname(db_path)
+    if db_dir:
+        os.makedirs(db_dir, exist_ok=True)
 
 engine = create_engine(
     settings.database_url,
