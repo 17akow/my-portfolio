@@ -1,21 +1,66 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { HiExternalLink, HiCode } from "react-icons/hi";
-import { useApi } from "../hooks/useApi";
-import { api } from "../api/client";
-import type { Project } from "../types";
+
+const PROJECTS = [
+  {
+    id: 1,
+    title: "AI Assistant Platform",
+    short_description: "AI-powered chatbot with user authentication, conversation history, role-based access",
+    description: "Full-stack AI chatbot platform with user authentication, conversation history persistence, role-based access control, and OpenAI/Groq integration. Built with React.js frontend and Django REST Framework backend with PostgreSQL.",
+    tech_stack: ["React.js", "Django", "OpenAI API", "PostgreSQL", "JWT"],
+    github_url: "https://github.com/17akow/ai-assistant",
+    demo_url: null,
+    featured: true,
+    category: "Full-Stack",
+    year: "2025",
+  },
+  {
+    id: 2,
+    title: "Full Stack Dashboard",
+    short_description: "Responsive admin dashboard with charts, analytics, user management",
+    description: "Responsive admin dashboard featuring interactive charts and analytics, user management interface, and a secure REST API. Built with React.js frontend and Django REST Framework backend with PostgreSQL and Tailwind CSS styling.",
+    tech_stack: ["React.js", "Django REST", "PostgreSQL", "Tailwind CSS", "Chart.js"],
+    github_url: "https://github.com/17akow/dashboard",
+    demo_url: null,
+    featured: true,
+    category: "Full-Stack",
+    year: "2025",
+  },
+  {
+    id: 3,
+    title: "E-commerce Web Application",
+    short_description: "Full-stack e-commerce with product management, cart, checkout, payment simulation",
+    description: "Full-stack e-commerce platform with product management, shopping cart, checkout flow, and payment simulation. Features JWT authentication, PostgreSQL database, and a responsive React.js frontend.",
+    tech_stack: ["React.js", "Django", "PostgreSQL", "JWT", "Tailwind CSS"],
+    github_url: "https://github.com/17akow/ecommerce",
+    demo_url: null,
+    featured: false,
+    category: "Full-Stack",
+    year: "2025",
+  },
+  {
+    id: 4,
+    title: "Personal Portfolio Website",
+    short_description: "Modern portfolio website to showcase skills and experience",
+    description: "Modern personal portfolio website built with HTML, CSS, and JavaScript. Showcases skills, projects, and professional experience with a clean responsive design.",
+    tech_stack: ["HTML", "CSS", "JavaScript"],
+    github_url: null,
+    demo_url: "https://akbarbek.dev",
+    featured: true,
+    category: "Frontend",
+    year: "2025",
+  },
+];
 
 export default function Projects() {
-  const { data: projects, loading } = useApi(() => api.getProjects(), []);
   const [filter, setFilter] = useState<string | null>(null);
 
-  const categories = projects
-    ? [...new Set(projects.map((p) => p.category).filter(Boolean))]
-    : [];
+  const categories = [...new Set(PROJECTS.map((p) => p.category).filter(Boolean))];
 
   const filtered = filter
-    ? projects?.filter((p) => p.category === filter)
-    : projects;
+    ? PROJECTS.filter((p) => p.category === filter)
+    : PROJECTS;
 
   return (
     <section id="projects" className="relative px-6 py-24">
@@ -60,22 +105,6 @@ export default function Projects() {
           ))}
         </div>
 
-        {loading && (
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {Array.from({ length: 3 }).map((_, i) => (
-              <div key={i} className="animate-pulse rounded-2xl border border-white/5 bg-white/[0.02] p-6">
-                <div className="mb-4 h-40 rounded-xl bg-white/10" />
-                <div className="h-5 w-3/4 rounded bg-white/10" />
-                <div className="mt-2 h-4 w-full rounded bg-white/5" />
-                <div className="mt-4 flex gap-2">
-                  <div className="h-6 w-16 rounded-full bg-white/10" />
-                  <div className="h-6 w-16 rounded-full bg-white/10" />
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-
         <AnimatePresence mode="wait">
           <motion.div
             key={filter ?? "all"}
@@ -85,7 +114,7 @@ export default function Projects() {
             transition={{ duration: 0.3 }}
             className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
           >
-            {filtered?.map((project, i) => (
+            {filtered.map((project, i) => (
               <ProjectCard key={project.id} project={project} index={i} />
             ))}
           </motion.div>
@@ -99,7 +128,7 @@ function ProjectCard({
   project,
   index,
 }: {
-  project: Project;
+  project: (typeof PROJECTS)[number];
   index: number;
 }) {
   const [expanded, setExpanded] = useState(false);
@@ -138,7 +167,7 @@ function ProjectCard({
           </h3>
 
           <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-gray-400">
-            {project.short_description || project.description}
+            {project.short_description}
           </p>
 
           <div className="mt-4 flex flex-wrap gap-1.5">

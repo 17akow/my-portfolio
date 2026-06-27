@@ -1,6 +1,42 @@
 import { motion } from "framer-motion";
-import { useApi } from "../hooks/useApi";
-import { api } from "../api/client";
+
+const SKILL_CATEGORIES = [
+  {
+    category: "Frontend",
+    skills: [
+      { name: "HTML5", proficiency: 5 },
+      { name: "CSS3 / Tailwind CSS", proficiency: 5 },
+      { name: "JavaScript ES6+", proficiency: 5 },
+      { name: "React.js", proficiency: 5 },
+      { name: "Redux Toolkit", proficiency: 4 },
+      { name: "React Router", proficiency: 4 },
+      { name: "Axios / Fetch API", proficiency: 4 },
+      { name: "TypeScript (Basic)", proficiency: 3 },
+    ],
+  },
+  {
+    category: "Backend",
+    skills: [
+      { name: "Python", proficiency: 5 },
+      { name: "Django", proficiency: 4 },
+      { name: "Django REST Framework", proficiency: 4 },
+      { name: "PostgreSQL", proficiency: 4 },
+      { name: "JWT Authentication", proficiency: 4 },
+      { name: "API Development", proficiency: 4 },
+    ],
+  },
+  {
+    category: "AI & Tools",
+    skills: [
+      { name: "OpenAI API", proficiency: 4 },
+      { name: "AI Chatbots", proficiency: 4 },
+      { name: "Prompt Engineering", proficiency: 4 },
+      { name: "Git & GitHub", proficiency: 4 },
+      { name: "Linux / Bash", proficiency: 3 },
+      { name: "Docker (Basic)", proficiency: 2 },
+    ],
+  },
+];
 
 const proficiencyMap: Record<number, { label: string; color: string }> = {
   1: { label: "Beginner", color: "bg-red-500" },
@@ -11,8 +47,6 @@ const proficiencyMap: Record<number, { label: string; color: string }> = {
 };
 
 export default function Skills() {
-  const { data: categories, loading } = useApi(() => api.getSkills(), []);
-
   return (
     <section id="skills" className="relative px-6 py-24">
       <div className="mx-auto max-w-6xl">
@@ -30,77 +64,59 @@ export default function Skills() {
           </h2>
         </motion.div>
 
-        {loading && (
-          <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="animate-pulse space-y-3 rounded-2xl border border-white/5 bg-white/[0.02] p-6">
-                <div className="h-5 w-24 rounded bg-white/10" />
-                {Array.from({ length: 3 }).map((_, j) => (
-                  <div key={j} className="space-y-1.5">
-                    <div className="h-3 w-20 rounded bg-white/10" />
-                    <div className="h-2.5 rounded-full bg-white/10" />
-                  </div>
-                ))}
-              </div>
-            ))}
-          </div>
-        )}
-
-        {categories && (
-          <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {categories.map((cat, catIdx) => (
-              <motion.div
-                key={cat.category}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.5, delay: catIdx * 0.1 }}
-                className="rounded-2xl border border-white/5 bg-white/[0.02] p-6 transition-all hover:border-white/10"
-              >
-                <h3 className="mb-5 text-sm font-semibold tracking-wider text-primary uppercase">
-                  {cat.category}
-                </h3>
-                <div className="space-y-4">
-                  {cat.skills.map((skill) => {
-                    const meta = proficiencyMap[skill.proficiency] ?? proficiencyMap[3]!;
-                    return (
-                      <div key={skill.id}>
-                        <div className="mb-1.5 flex items-center justify-between">
-                          <span className="text-sm font-medium text-gray-300">
-                            {skill.name}
-                          </span>
-                          <span className="text-xs text-gray-500">
-                            {meta.label}
-                          </span>
-                        </div>
-                        <div
-                          className="h-2 overflow-hidden rounded-full bg-white/5"
-                          role="progressbar"
-                          aria-valuenow={skill.proficiency}
-                          aria-valuemin={1}
-                          aria-valuemax={5}
-                          aria-label={`${skill.name}: ${meta.label}`}
-                        >
-                          <motion.div
-                            initial={{ width: 0 }}
-                            whileInView={{ width: `${skill.proficiency * 20}%` }}
-                            viewport={{ once: true }}
-                            transition={{
-                              duration: 1,
-                              delay: catIdx * 0.1,
-                              ease: "easeOut",
-                            }}
-                            className={`h-full rounded-full ${meta.color}`}
-                          />
-                        </div>
+        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {SKILL_CATEGORIES.map((cat, catIdx) => (
+            <motion.div
+              key={cat.category}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5, delay: catIdx * 0.1 }}
+              className="rounded-2xl border border-white/5 bg-white/[0.02] p-6 transition-all hover:border-white/10"
+            >
+              <h3 className="mb-5 text-sm font-semibold tracking-wider text-primary uppercase">
+                {cat.category}
+              </h3>
+              <div className="space-y-4">
+                {cat.skills.map((skill) => {
+                  const meta = proficiencyMap[skill.proficiency] ?? proficiencyMap[3]!;
+                  return (
+                    <div key={skill.name}>
+                      <div className="mb-1.5 flex items-center justify-between">
+                        <span className="text-sm font-medium text-gray-300">
+                          {skill.name}
+                        </span>
+                        <span className="text-xs text-gray-500">
+                          {meta.label}
+                        </span>
                       </div>
-                    );
-                  })}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        )}
+                      <div
+                        className="h-2 overflow-hidden rounded-full bg-white/5"
+                        role="progressbar"
+                        aria-valuenow={skill.proficiency}
+                        aria-valuemin={1}
+                        aria-valuemax={5}
+                        aria-label={`${skill.name}: ${meta.label}`}
+                      >
+                        <motion.div
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${skill.proficiency * 20}%` }}
+                          viewport={{ once: true }}
+                          transition={{
+                            duration: 1,
+                            delay: catIdx * 0.1,
+                            ease: "easeOut",
+                          }}
+                          className={`h-full rounded-full ${meta.color}`}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
