@@ -14,6 +14,8 @@ const PROJECTS = [
     featured: true,
     category: "Full-Stack",
     year: "2025",
+    gradient: "from-purple-600/20 to-blue-600/20",
+    iconColor: "text-purple-400/40",
   },
   {
     id: 2,
@@ -26,6 +28,8 @@ const PROJECTS = [
     featured: true,
     category: "Full-Stack",
     year: "2025",
+    gradient: "from-blue-600/20 to-cyan-600/20",
+    iconColor: "text-blue-400/40",
   },
   {
     id: 3,
@@ -38,6 +42,8 @@ const PROJECTS = [
     featured: false,
     category: "Full-Stack",
     year: "2025",
+    gradient: "from-green-600/20 to-teal-600/20",
+    iconColor: "text-green-400/40",
   },
   {
     id: 4,
@@ -50,6 +56,8 @@ const PROJECTS = [
     featured: true,
     category: "Frontend",
     year: "2025",
+    gradient: "from-orange-600/20 to-pink-600/20",
+    iconColor: "text-orange-400/40",
   },
 ];
 
@@ -144,8 +152,8 @@ function ProjectCard({
         onClick={() => setExpanded(!expanded)}
         className="group relative cursor-pointer overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02] transition-all hover:border-primary/20 hover:bg-white/[0.04]"
       >
-        <div className="flex aspect-video items-center justify-center bg-gradient-to-br from-primary/10 to-purple-500/10">
-          <HiCode size={40} className="text-primary/30" />
+        <div className={`flex aspect-video items-center justify-center bg-gradient-to-br ${project.gradient}`}>
+          <HiCode size={40} className={project.iconColor} />
         </div>
 
         <div className="p-5">
