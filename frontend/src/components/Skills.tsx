@@ -38,12 +38,12 @@ const SKILL_CATEGORIES = [
   },
 ];
 
-const proficiencyMap: Record<number, { label: string; color: string }> = {
-  1: { label: "Beginner", color: "bg-red-500" },
-  2: { label: "Elementary", color: "bg-orange-500" },
-  3: { label: "Intermediate", color: "bg-yellow-500" },
-  4: { label: "Advanced", color: "bg-green-500" },
-  5: { label: "Expert", color: "bg-primary" },
+const proficiencyMap: Record<number, { label: string; bar: string }> = {
+  1: { label: "Beginner", bar: "from-red-500 to-orange-500" },
+  2: { label: "Elementary", bar: "from-orange-500 to-yellow-500" },
+  3: { label: "Intermediate", bar: "from-yellow-500 to-green-500" },
+  4: { label: "Advanced", bar: "from-green-500 to-primary" },
+  5: { label: "Expert", bar: "from-primary to-accent" },
 };
 
 export default function Skills() {
@@ -72,7 +72,7 @@ export default function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.5, delay: catIdx * 0.1 }}
-              className="rounded-2xl border border-white/5 bg-white/[0.02] p-6 transition-all hover:border-white/10"
+              className="glass-card group rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5"
             >
               <h3 className="mb-5 text-sm font-semibold tracking-wider text-primary uppercase">
                 {cat.category}
@@ -107,7 +107,7 @@ export default function Skills() {
                             delay: catIdx * 0.1,
                             ease: "easeOut",
                           }}
-                          className={`h-full rounded-full ${meta.color}`}
+                          className={`h-full rounded-full bg-gradient-to-r ${meta.bar}`}
                         />
                       </div>
                     </div>

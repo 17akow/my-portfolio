@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   HiArrowDown,
-  HiCode,
   HiCube,
+  HiCode,
   HiServer,
   HiChip,
 } from "react-icons/hi";
@@ -15,12 +15,69 @@ const TYPING_TITLES = [
   "AI Integration Specialist",
 ];
 
-const floatingIcons = [
-  { Icon: HiCode, x: "10%", y: "20%", delay: 0, size: 28 },
-  { Icon: HiCube, x: "85%", y: "30%", delay: 0.5, size: 24 },
-  { Icon: HiServer, x: "15%", y: "70%", delay: 1, size: 22 },
-  { Icon: HiChip, x: "80%", y: "75%", delay: 1.5, size: 26 },
+const geometricShapes = [
+  { type: "cube", x: "8%", y: "15%", delay: 0, size: 48, rotation: 0 },
+  { type: "sphere", x: "75%", y: "20%", delay: 0.8, size: 36, rotation: 45 },
+  { type: "tetra", x: "20%", y: "72%", delay: 1.5, size: 42, rotation: 30 },
+  { type: "cube", x: "85%", y: "70%", delay: 0.3, size: 32, rotation: 60 },
+  { type: "sphere", x: "50%", y: "10%", delay: 2, size: 28, rotation: 90 },
+  { type: "tetra", x: "65%", y: "85%", delay: 1.2, size: 38, rotation: 15 },
 ];
+
+const techIcons = [
+  { Icon: HiCode, x: "12%", y: "35%", delay: 0.5, size: 24 },
+  { Icon: HiServer, x: "88%", y: "40%", delay: 1, size: 20 },
+  { Icon: HiCube, x: "10%", y: "55%", delay: 1.5, size: 22 },
+  { Icon: HiChip, x: "82%", y: "60%", delay: 2, size: 26 },
+];
+
+const ShapeComponent = ({
+  type,
+  size,
+  rotation,
+}: {
+  type: string;
+  size: number;
+  rotation: number;
+}) => {
+  const base =
+    "absolute border border-primary/20 shadow-lg shadow-primary/5";
+
+  if (type === "sphere") {
+    return (
+      <div
+        className={`${base} rounded-full bg-gradient-to-br from-primary/5 to-accent/5`}
+        style={{ width: size, height: size }}
+      />
+    );
+  }
+
+  if (type === "tetra") {
+    return (
+      <div
+        className={`${base} bg-gradient-to-tr from-primary/5 to-transparent`}
+        style={{
+          width: size,
+          height: size,
+          clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)",
+          transform: `rotate(${rotation}deg)`,
+        }}
+      />
+    );
+  }
+
+  return (
+    <div
+      className={`${base} bg-gradient-to-br from-accent/5 to-transparent`}
+      style={{
+        width: size,
+        height: size,
+        borderRadius: "4px",
+        transform: `rotate(${rotation}deg)`,
+      }}
+    />
+  );
+};
 
 export default function Hero() {
   const [titleIndex, setTitleIndex] = useState(0);
@@ -53,21 +110,67 @@ export default function Hero() {
     };
   }, [charIndex, deleting, titleIndex, currentTitle.length]);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  };
+
   return (
     <section
       id="hero"
       className="relative flex min-h-screen items-center justify-center overflow-hidden px-6"
     >
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-gray-950" />
+      <div className="animated-gradient pointer-events-none absolute inset-0" />
 
-      {floatingIcons.map(({ Icon, x, y, delay, size }) => (
+      <div className="pointer-events-none absolute inset-0 opacity-30">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 25% 50%, rgba(6,182,212,0.15) 0%, transparent 50%), radial-gradient(circle at 75% 50%, rgba(168,85,247,0.12) 0%, transparent 50%)",
+          }}
+        />
+      </div>
+
+      <div className="geo-shape absolute inset-0 overflow-hidden">
+        {geometricShapes.map((shape, i) => (
+          <motion.div
+            key={i}
+            className="float-slow"
+            style={{ left: shape.x, top: shape.y, position: "absolute" }}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: shape.delay, duration: 1.5, ease: "easeOut" }}
+          >
+            <ShapeComponent
+              type={shape.type}
+              size={shape.size}
+              rotation={shape.rotation}
+            />
+          </motion.div>
+        ))}
+      </div>
+
+      {techIcons.map(({ Icon, x, y, delay, size }) => (
         <motion.div
           key={`${x}-${y}`}
-          className="pointer-events-none absolute text-primary/10"
+          className="pointer-events-none absolute text-primary/8"
           style={{ left: x, top: y }}
-          animate={{ y: [0, -12, 0] }}
+          animate={{ y: [0, -16, 0] }}
           transition={{
-            duration: 4,
+            duration: 5,
             repeat: Infinity,
             delay,
             ease: "easeInOut",
@@ -77,47 +180,43 @@ export default function Hero() {
         </motion.div>
       ))}
 
-      <div className="relative z-10 mx-auto max-w-3xl text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <span className="mb-4 inline-block rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-xs font-medium tracking-wider text-primary uppercase">
+      <motion.div
+        className="relative z-10 mx-auto max-w-4xl text-center"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.div variants={itemVariants}>
+          <span className="mb-4 inline-block rounded-full border border-primary/20 bg-primary/8 px-4 py-1.5 text-xs font-medium tracking-wider text-primary uppercase shadow-lg shadow-primary/5">
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary animate-pulse mr-2" />
             Available for hire
           </span>
         </motion.div>
 
         <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
-          className="mt-4 text-4xl font-bold leading-tight sm:text-5xl md:text-6xl lg:text-7xl"
+          variants={itemVariants}
+          className="mt-6 text-5xl font-bold leading-tight sm:text-6xl md:text-7xl lg:text-8xl tracking-tight"
         >
           Hi, I'm{" "}
-          <span className="bg-gradient-to-r from-primary to-purple-400 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent glow-text bg-[length:200%_auto] animate-pulse-glow">
             Akbarbek
           </span>
         </motion.h1>
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-          className="mt-4 flex items-center justify-center gap-1 text-xl sm:text-2xl md:text-3xl"
+          variants={itemVariants}
+          className="mt-6 flex items-center justify-center gap-1.5 text-2xl sm:text-3xl md:text-4xl"
         >
-          <span className="text-gray-400">{">"}</span>
-          <span className="min-h-[1.2em] font-mono text-gray-200">
+          <span className="text-primary/50 font-mono">&gt;</span>
+          <span className="min-h-[1.2em] font-mono text-gray-200 font-light">
             {currentTitle.slice(0, charIndex)}
           </span>
           <span className="cursor-blink inline-block h-[1.1em] w-[3px] bg-primary" />
         </motion.div>
 
         <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.45, ease: "easeOut" }}
-          className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-gray-400 sm:text-lg"
+          variants={itemVariants}
+          className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-gray-400 sm:text-lg"
         >
           Motivated Full Stack Developer and Computer Science student with 2+
           years of experience building modern web applications and AI-powered
@@ -125,32 +224,31 @@ export default function Hero() {
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-          className="mt-8 flex flex-wrap items-center justify-center gap-4"
+          variants={itemVariants}
+          className="mt-10 flex flex-wrap items-center justify-center gap-4"
         >
           <a
             href="#projects"
-            className="rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:bg-primary-dark hover:shadow-primary/40"
+            className="group relative overflow-hidden rounded-xl bg-gradient-to-r from-primary to-accent px-8 py-3.5 text-sm font-semibold text-white shadow-xl shadow-primary/25 transition-all hover:shadow-primary/40 hover:scale-105"
           >
-            View My Work
+            <span className="relative z-10">View My Work</span>
+            <div className="absolute inset-0 -translate-x-full skew-x-12 bg-white/10 transition-transform duration-300 group-hover:translate-x-full" />
           </a>
           <a
             href="#contact"
-            className="rounded-xl border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold text-gray-300 transition-all hover:border-primary/30 hover:text-white"
+            className="rounded-xl border border-white/10 bg-white/5 px-8 py-3.5 text-sm font-semibold text-gray-300 backdrop-blur-sm transition-all hover:border-primary/30 hover:bg-white/10 hover:text-white hover:shadow-lg hover:shadow-primary/10"
           >
             Get in Touch
           </a>
         </motion.div>
-      </div>
+      </motion.div>
 
       <motion.a
         href="#about"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-gray-500 transition-colors hover:text-primary"
+        transition={{ delay: 2 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-gray-500 transition-colors hover:text-primary"
       >
         <HiArrowDown className="float-animation" size={24} />
       </motion.a>

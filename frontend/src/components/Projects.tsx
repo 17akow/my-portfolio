@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, type MouseEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { HiExternalLink, HiCode } from "react-icons/hi";
 
@@ -49,8 +49,8 @@ const PROJECTS = [
     id: 4,
     title: "Personal Portfolio Website",
     short_description: "Modern portfolio website to showcase skills and experience",
-    description: "Modern personal portfolio website built with HTML, CSS, and JavaScript. Showcases skills, projects, and professional experience with a clean responsive design.",
-    tech_stack: ["HTML", "CSS", "JavaScript"],
+    description: "Modern personal portfolio website built with React, TypeScript, and Tailwind CSS. Showcases skills, projects, and professional experience with a clean responsive design and glassmorphism UI.",
+    tech_stack: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"],
     github_url: null,
     demo_url: "https://akbarbek.dev",
     featured: true,
@@ -140,6 +140,24 @@ function ProjectCard({
   index: number;
 }) {
   const [expanded, setExpanded] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -8;
+    const rotateY = ((x - centerX) / centerX) * 8;
+    cardRef.current.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+  };
+
+  const handleMouseLeave = () => {
+    if (!cardRef.current) return;
+    cardRef.current.style.transform = "perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)";
+  };
 
   return (
     <motion.div
@@ -149,14 +167,21 @@ function ProjectCard({
       transition={{ duration: 0.5, delay: index * 0.08 }}
     >
       <div
+        ref={cardRef}
         onClick={() => setExpanded(!expanded)}
-        className="group relative cursor-pointer overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02] transition-all hover:border-primary/20 hover:bg-white/[0.04]"
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className="gradient-border-glow group relative cursor-pointer overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02] transition-all duration-300 hover:bg-white/[0.04]"
+        style={{ transformStyle: "preserve-3d" }}
       >
-        <div className={`flex aspect-video items-center justify-center bg-gradient-to-br ${project.gradient}`}>
+        <div
+          className={`flex aspect-video items-center justify-center bg-gradient-to-br ${project.gradient}`}
+          style={{ transform: "translateZ(20px)" }}
+        >
           <HiCode size={40} className={project.iconColor} />
         </div>
 
-        <div className="p-5">
+        <div className="p-5" style={{ transform: "translateZ(30px)" }}>
           <div className="mb-2 flex items-center gap-2">
             {project.featured && (
               <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-semibold tracking-wider text-primary uppercase">

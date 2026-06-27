@@ -86,7 +86,7 @@ export default function Contact() {
                   onChange={(e) =>
                     setForm((f) => ({ ...f, name: e.target.value }))
                   }
-                  className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-gray-100 placeholder-gray-600 outline-none transition-all focus:border-primary/50 focus:bg-white/[0.05]"
+                  className="glass-card w-full rounded-xl px-4 py-3 text-sm text-gray-100 placeholder-gray-600 outline-none transition-all duration-200 focus:border-primary/30 focus:bg-white/[0.06]"
                   placeholder="Your name"
                 />
               </div>
@@ -105,7 +105,7 @@ export default function Contact() {
                   onChange={(e) =>
                     setForm((f) => ({ ...f, email: e.target.value }))
                   }
-                  className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-gray-100 placeholder-gray-600 outline-none transition-all focus:border-primary/50 focus:bg-white/[0.05]"
+                  className="glass-card w-full rounded-xl px-4 py-3 text-sm text-gray-100 placeholder-gray-600 outline-none transition-all duration-200 focus:border-primary/30 focus:bg-white/[0.06]"
                   placeholder="you@example.com"
                 />
               </div>
@@ -124,7 +124,7 @@ export default function Contact() {
                 onChange={(e) =>
                   setForm((f) => ({ ...f, subject: e.target.value }))
                 }
-                className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-gray-100 placeholder-gray-600 outline-none transition-all focus:border-primary/50 focus:bg-white/[0.05]"
+                className="glass-card w-full rounded-xl px-4 py-3 text-sm text-gray-100 placeholder-gray-600 outline-none transition-all duration-200 focus:border-primary/30 focus:bg-white/[0.06]"
                 placeholder="What's this about?"
               />
             </div>
@@ -144,7 +144,7 @@ export default function Contact() {
                 onChange={(e) =>
                   setForm((f) => ({ ...f, message: e.target.value }))
                 }
-                className="w-full resize-none rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-gray-100 placeholder-gray-600 outline-none transition-all focus:border-primary/50 focus:bg-white/[0.05]"
+                className="glass-card w-full resize-none rounded-xl px-4 py-3 text-sm text-gray-100 placeholder-gray-600 outline-none transition-all duration-200 focus:border-primary/30 focus:bg-white/[0.06]"
                 placeholder="Tell me about your project or idea..."
               />
             </div>
@@ -152,16 +152,19 @@ export default function Contact() {
             <button
               type="submit"
               disabled={sending}
-              className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:bg-primary-dark hover:shadow-primary/40 disabled:cursor-not-allowed disabled:opacity-50"
+              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-primary to-accent px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:shadow-primary/40 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {sending ? (
-                "Sending..."
-              ) : (
-                <>
-                  <HiPaperAirplane size={16} className="-rotate-45" />
-                  Send Message
-                </>
-              )}
+              <span className="relative z-10 flex items-center gap-2">
+                {sending ? (
+                  "Sending..."
+                ) : (
+                  <>
+                    <HiPaperAirplane size={16} className="-rotate-45 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    Send Message
+                  </>
+                )}
+              </span>
+              <div className="absolute inset-0 -translate-x-full skew-x-12 bg-white/10 transition-transform duration-300 group-hover:translate-x-full" />
             </button>
 
             {status && (
@@ -186,8 +189,8 @@ export default function Contact() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="lg:col-span-2"
           >
-            <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-6">
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+            <div className="glass-card rounded-2xl p-6">
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-accent text-white shadow-lg">
                 <HiMail size={22} />
               </div>
               <h3 className="text-lg font-semibold text-gray-200">

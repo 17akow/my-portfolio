@@ -6,16 +6,19 @@ const HIGHLIGHTS = [
     icon: HiCode,
     title: "Full Stack Development",
     description: "2+ years building responsive UIs with React.js and REST APIs with Django.",
+    gradient: "from-primary to-cyan-400",
   },
   {
     icon: HiLightningBolt,
     title: "AI Integration",
     description: "Experience integrating OpenAI, Groq LLMs, and building AI-powered chatbots.",
+    gradient: "from-accent to-purple-400",
   },
   {
     icon: HiAcademicCap,
     title: "Computer Science",
     description: "1st-year BSc CS student at WIUT with Google IT Support certification.",
+    gradient: "from-primary to-accent",
   },
 ];
 
@@ -77,9 +80,11 @@ export default function About() {
             {HIGHLIGHTS.map((item) => (
               <div
                 key={item.title}
-                className="group flex items-start gap-4 rounded-2xl border border-white/5 bg-white/[0.02] p-5 transition-all hover:border-primary/20 hover:bg-primary/[0.03]"
+                className="glass-card group flex items-start gap-4 rounded-2xl p-5 transition-all duration-300 hover:-translate-y-0.5"
               >
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary/20">
+                <div
+                  className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${item.gradient} text-white shadow-lg`}
+                >
                   <item.icon size={20} />
                 </div>
                 <div>
