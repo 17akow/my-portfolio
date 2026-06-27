@@ -1,21 +1,21 @@
 import { motion } from "framer-motion";
-import { HiCode, HiLightningBolt, HiColorSwatch } from "react-icons/hi";
+import { HiCode, HiLightningBolt, HiAcademicCap } from "react-icons/hi";
 
 const HIGHLIGHTS = [
   {
     icon: HiCode,
-    title: "Clean Code",
-    description: "Write readable, maintainable code that scales.",
+    title: "Full Stack Development",
+    description: "2+ years building responsive UIs with React.js and REST APIs with Django.",
   },
   {
     icon: HiLightningBolt,
-    title: "Fast Delivery",
-    description: "Ship production-ready features with confidence.",
+    title: "AI Integration",
+    description: "Experience integrating OpenAI, Groq LLMs, and building AI-powered chatbots.",
   },
   {
-    icon: HiColorSwatch,
-    title: "Pixel Perfect",
-    description: "Craft beautiful, responsive UIs that users love.",
+    icon: HiAcademicCap,
+    title: "Computer Science",
+    description: "1st-year BSc CS student at WIUT with Google IT Support certification.",
   },
 ];
 
@@ -47,20 +47,23 @@ export default function About() {
             className="space-y-5 text-base leading-relaxed text-gray-400"
           >
             <p>
-              I'm a full-stack developer and AI engineer with{" "}
-              <span className="text-gray-200">5+ years</span> of experience
-              building products from idea to production. I specialize in
-              Python, TypeScript, and cloud-native architectures.
+              I'm a{" "}
+              <span className="text-gray-200">Full Stack Developer</span> and
+              Computer Science student with 2+ years of experience building
+              modern web applications and AI-powered solutions. I specialize in
+              React.js, JavaScript, Python, Django, and REST API development.
             </p>
             <p>
-              My work spans fintech, edtech, and developer tooling — from
-              real-time analytics dashboards handling millions of events to
-              ML model serving platforms running at scale.
+              I've developed 10+ web projects including landing pages,
+              portfolios, dashboards, and full-stack e-commerce platforms.
+              I'm proficient in React.js, Tailwind CSS, Django REST Framework,
+              PostgreSQL, and JWT authentication.
             </p>
             <p>
-              When I'm not coding, I contribute to open source projects,
-              write technical articles, and explore the latest in AI and
-              systems design.
+              I also hold a{" "}
+              <span className="text-gray-200">Google IT Support Professional Certificate</span>
+              {" "}and speak Uzbek (native), Russian (fluent), and English
+              (IELTS 6.0). I'm open to remote opportunities worldwide.
             </p>
           </motion.div>
 

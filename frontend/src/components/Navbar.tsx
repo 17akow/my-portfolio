@@ -33,7 +33,7 @@ export default function Navbar() {
           className="text-xl font-bold tracking-tight text-white"
         >
           <span className="text-primary">&lt;</span>
-          Akbar
+          Akbarbek
           <span className="text-primary"> /&gt;</span>
         </a>
 

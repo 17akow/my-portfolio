@@ -10,98 +10,131 @@ def seed_database():
             return
 
         profile = Profile(
-            name="Akbar",
-            title="Full-Stack Developer & AI Engineer",
-            bio="I build scalable web applications and AI-powered solutions. "
-            "Passionate about clean architecture, developer experience, and "
-            "creating products that make a difference.",
-            avatar_url="https://avatars.githubusercontent.com/u/akbar",
+            name="Akbarbek Umedilloev",
+            title="Full Stack Developer | React.js | Django | Python | AI Integration",
+            bio="Motivated Full Stack Developer and Computer Science student with 2+ years of experience "
+            "building modern web applications and AI-powered solutions. Proficient in React.js, JavaScript, "
+            "Python, Django, REST APIs, and databases. Open to remote opportunities worldwide.",
+            avatar_url=None,
             resume_url=None,
-            location="San Francisco, CA",
+            location="Uzbekistan",
             social_links={
-                "github": "https://github.com/akbar",
-                "linkedin": "https://linkedin.com/in/akbar",
-                "twitter": "https://twitter.com/akbar",
-                "email": "akbar@example.com",
+                "github": "https://github.com/17akow",
+                "linkedin": "https://linkedin.com/in/17akow",
+                "email": "akbareur@gmail.com",
+                "phone": "+998 94 734 51 00",
             },
         )
         db.add(profile)
 
         skills_data = [
-            Skill(name="Python", category="Backend", proficiency=5, order_index=1),
-            Skill(name="FastAPI", category="Backend", proficiency=5, order_index=2),
-            Skill(name="TypeScript", category="Frontend", proficiency=4, order_index=3),
-            Skill(name="React", category="Frontend", proficiency=5, order_index=4),
-            Skill(name="PostgreSQL", category="Database", proficiency=4, order_index=5),
-            Skill(name="Docker", category="DevOps", proficiency=4, order_index=6),
-            Skill(name="AWS", category="DevOps", proficiency=3, order_index=7),
-            Skill(name="Groq/LLM APIs", category="AI", proficiency=4, order_index=8),
-            Skill(name="TensorFlow", category="AI", proficiency=3, order_index=9),
-            Skill(name="Next.js", category="Frontend", proficiency=4, order_index=10),
-            Skill(name="GraphQL", category="Backend", proficiency=3, order_index=11),
-            Skill(name="Redis", category="Database", proficiency=3, order_index=12),
+            # Frontend
+            Skill(name="HTML5", category="Frontend", proficiency=5, order_index=1),
+            Skill(name="CSS3 / Tailwind CSS", category="Frontend", proficiency=5, order_index=2),
+            Skill(name="JavaScript ES6+", category="Frontend", proficiency=5, order_index=3),
+            Skill(name="React.js", category="Frontend", proficiency=5, order_index=4),
+            Skill(name="TypeScript (Basic)", category="Frontend", proficiency=3, order_index=5),
+            Skill(name="Redux Toolkit", category="Frontend", proficiency=4, order_index=6),
+            Skill(name="React Router", category="Frontend", proficiency=4, order_index=7),
+            Skill(name="Axios / Fetch API", category="Frontend", proficiency=4, order_index=8),
+            # Backend
+            Skill(name="Python", category="Backend", proficiency=5, order_index=9),
+            Skill(name="Django", category="Backend", proficiency=4, order_index=10),
+            Skill(name="Django REST Framework", category="Backend", proficiency=4, order_index=11),
+            Skill(name="PostgreSQL", category="Backend", proficiency=4, order_index=12),
+            Skill(name="JWT Authentication", category="Backend", proficiency=4, order_index=13),
+            Skill(name="API Development", category="Backend", proficiency=4, order_index=14),
+            # AI & Tools
+            Skill(name="OpenAI API", category="AI & Tools", proficiency=4, order_index=15),
+            Skill(name="AI Chatbots", category="AI & Tools", proficiency=4, order_index=16),
+            Skill(name="Prompt Engineering", category="AI & Tools", proficiency=4, order_index=17),
+            Skill(name="Git & GitHub", category="AI & Tools", proficiency=4, order_index=18),
+            Skill(name="Docker (Basic)", category="AI & Tools", proficiency=2, order_index=19),
+            Skill(name="Linux / Bash", category="AI & Tools", proficiency=3, order_index=20),
+            Skill(name="VS Code", category="AI & Tools", proficiency=5, order_index=21),
         ]
         db.add_all(skills_data)
 
         projects_data = [
             Project(
-                title="AI Portfolio Assistant",
-                short_description="Groq-powered chatbot for IT portfolio",
-                description="Built an intelligent chat assistant using Groq's LLaMA 3.3 API "
-                "with conversation memory and Telegram notifications.",
-                tech_stack=["FastAPI", "Groq", "React", "SQLite", "Telegram API"],
-                github_url="https://github.com/akbar/portfolio",
-                demo_url="https://portfolio.akbar.dev",
+                title="AI Assistant Platform",
+                short_description="AI-powered chatbot with auth, conversation history, role-based access",
+                description="Full-stack AI chatbot platform with user authentication, conversation history "
+                "persistence, role-based access control, and OpenAI/Groq integration. Built with React.js "
+                "frontend and Django REST Framework backend with PostgreSQL.",
+                tech_stack=["React.js", "Django", "OpenAI API", "PostgreSQL", "JWT"],
+                github_url="https://github.com/17akow/ai-assistant",
+                demo_url=None,
                 featured=True,
                 category="Full-Stack",
-                year="2026",
+                year="2025",
                 order_index=1,
             ),
             Project(
-                title="Real-Time Dashboard",
-                short_description="Analytics dashboard with WebSocket streaming",
-                description="Real-time data visualization dashboard with WebSocket updates, "
-                "custom chart components, and role-based access control.",
-                tech_stack=["Next.js", "FastAPI", "PostgreSQL", "WebSockets", "Chart.js"],
-                github_url="https://github.com/akbar/dashboard",
+                title="Full Stack Dashboard",
+                short_description="Responsive admin dashboard with charts, analytics, user management",
+                description="Responsive admin dashboard featuring interactive charts and analytics, "
+                "user management interface, and a secure REST API. Built with React.js frontend and "
+                "Django REST Framework backend with PostgreSQL and Tailwind CSS styling.",
+                tech_stack=["React.js", "Django REST", "PostgreSQL", "Tailwind CSS", "Chart.js"],
+                github_url="https://github.com/17akow/dashboard",
+                demo_url=None,
                 featured=True,
                 category="Full-Stack",
                 year="2025",
                 order_index=2,
             ),
             Project(
-                title="ML Model Serving Platform",
-                short_description="Production ML inference at scale",
-                description="Designed and deployed a model serving infrastructure using Docker "
-                "and Kubernetes with auto-scaling and monitoring.",
-                tech_stack=["Python", "Docker", "Kubernetes", "FastAPI", "Prometheus"],
-                github_url="https://github.com/akbar/ml-serving",
+                title="E-commerce Web Application",
+                short_description="Full-stack e-commerce with product mgmt, cart, checkout, payment sim",
+                description="Full-stack e-commerce platform with product management, shopping cart, "
+                "checkout flow, and payment simulation. Features JWT authentication, PostgreSQL database, "
+                "and a responsive React.js frontend.",
+                tech_stack=["React.js", "Django", "PostgreSQL", "JWT", "Tailwind CSS"],
+                github_url="https://github.com/17akow/ecommerce",
+                demo_url=None,
                 featured=False,
-                category="AI/ML",
+                category="Full-Stack",
                 year="2025",
                 order_index=3,
+            ),
+            Project(
+                title="Personal Portfolio Website",
+                short_description="Modern portfolio website to showcase skills and experience",
+                description="Modern personal portfolio website built with HTML, CSS, and JavaScript. "
+                "Showcases skills, projects, and professional experience with a clean responsive design.",
+                tech_stack=["HTML", "CSS", "JavaScript"],
+                github_url=None,
+                demo_url="https://akbarbek.dev",
+                featured=True,
+                category="Frontend",
+                year="2025",
+                order_index=4,
             ),
         ]
         db.add_all(projects_data)
 
         experiences_data = [
             Experience(
-                company="Tech Corp",
-                role="Senior Backend Engineer",
-                description="Architected microservices handling 1M+ daily requests. "
-                "Led migration from monolith to event-driven architecture.",
-                start_date="2023-01",
+                company="Self-Employed (Remote)",
+                role="Freelance Full Stack Developer",
+                description="Developed 10+ web projects including landing pages, portfolios, and dashboards. "
+                "Built responsive frontends using React.js, JavaScript, and Tailwind CSS. "
+                "Developed backend REST APIs using Python, Django, and Django REST Framework. "
+                "Integrated JWT authentication, PostgreSQL, and third-party APIs.",
+                start_date="2022-01",
                 current=True,
-                location="San Francisco, CA",
+                location="Remote",
                 order_index=1,
             ),
             Experience(
-                company="StartupXYZ",
-                role="Full-Stack Developer",
-                description="Built the core product from MVP to production. "
-                "Owned frontend, backend, and infrastructure.",
-                start_date="2021-03",
-                end_date="2022-12",
+                company="Google / Coursera",
+                role="IT Support Learner & Network Lab Practice",
+                description="Completed 5-course Google IT Support Professional Certificate. "
+                "Gained hands-on experience with networking (TCP/IP, DNS, DHCP), Linux & Windows "
+                "administration, and IT security fundamentals.",
+                start_date="2023-01",
+                end_date="2024-07",
                 current=False,
                 location="Remote",
                 order_index=2,

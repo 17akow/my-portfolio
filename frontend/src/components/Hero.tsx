@@ -9,10 +9,10 @@ import {
 } from "react-icons/hi";
 
 const TYPING_TITLES = [
-  "Full-Stack Developer",
-  "AI Engineer",
-  "System Architect",
-  "Open Source Contributor",
+  "Full Stack Developer",
+  "React.js Developer",
+  "Django Developer",
+  "AI Integration Specialist",
 ];
 
 const floatingIcons = [
@@ -96,7 +96,7 @@ export default function Hero() {
         >
           Hi, I'm{" "}
           <span className="bg-gradient-to-r from-primary to-purple-400 bg-clip-text text-transparent">
-            Akbar
+            Akbarbek
           </span>
         </motion.h1>
 
@@ -119,9 +119,9 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.45, ease: "easeOut" }}
           className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-gray-400 sm:text-lg"
         >
-          I build scalable web applications and AI-powered solutions.
-          Passionate about clean architecture, developer experience, and
-          creating products that make a difference.
+          Motivated Full Stack Developer and Computer Science student with 2+
+          years of experience building modern web applications and AI-powered
+          solutions. Open to remote opportunities worldwide.
         </motion.p>
 
         <motion.div
