@@ -198,12 +198,15 @@ export default function Contact() {
                 or opportunities to be part of your vision.
               </p>
               <a
-                href="mailto:akbar@example.com"
+                href="mailto:akbareur@gmail.com"
                 className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary-dark"
               >
-                akbar@example.com
+                akbareur@gmail.com
                 <HiPaperAirplane size={14} className="-rotate-45" />
               </a>
+              <p className="mt-2 text-sm text-gray-500">
+                +998 94 734 51 00
+              </p>
             </div>
           </motion.div>
         </div>

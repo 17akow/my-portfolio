@@ -10,7 +10,7 @@ export default function Footer() {
           FastAPI
         </p>
         <p className="text-sm text-gray-500">
-          &copy; {new Date().getFullYear()} Akbar. All rights reserved.
+          &copy; {new Date().getFullYear()} Akbarbek Umedilloev. All rights reserved.
         </p>
       </div>
     </footer>
