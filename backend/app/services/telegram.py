@@ -3,8 +3,9 @@ import logging
 import httpx
 
 from app.config import settings
-
+from datetime import datetime
 logger = logging.getLogger(__name__)
+current_time = datetime.now().strftime("%d %b %Y • %H:%M")
 
 TELEGRAM_API = f"https://api.telegram.org/bot{settings.telegram_bot_token}"
 
@@ -15,11 +16,33 @@ async def send_telegram_notification(name: str, email: str, subject: str, messag
         return False
 
     text = (
-        f"<b>📬 New Contact Form Submission</b>\n\n"
-        f"<b>From:</b> {name}\n"
-        f"<b>Email:</b> {email}\n"
-        f"<b>Subject:</b> {subject or 'No subject'}\n"
-        f"<b>Message:</b>\n{message[:2000]}"
+
+        f"📩 <b>New Portfolio Contact</b>\n\n"
+
+        f"👤 <b>Name</b>\n"
+
+        f"{name}\n\n"
+
+        f"📧 <b>Email</b>\n"
+
+        f"{email}\n\n"
+
+        f"📝 <b>Subject</b>\n"
+
+        f"{subject or 'No Subject'}\n\n"
+
+        f"💬 <b>Message</b>\n"
+
+        f"{message[:2000]}\n\n"
+
+        f"🕒 <b>Time</b>\n"
+
+        f"{current_time}\n\n"
+
+        f"🌐 <b>Source</b>\n"
+
+        f"Portfolio Website"
+
     )
 
     url = f"{TELEGRAM_API}/sendMessage"
