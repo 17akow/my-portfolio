@@ -48,94 +48,116 @@ const SECTIONS: ShowcaseSection[] = [
   {
     id: "hero",
     label: "Dashboard Overview",
-    title: "Analytics Command Center",
-    description: "A comprehensive admin dashboard featuring real-time analytics, revenue tracking, user monitoring, and system performance metrics presented through a premium glassmorphism interface.",
-    image: "/projects/dashboard/dashboard-hero.png",
+    title: "Executive Command Center",
+    description: "A comprehensive ERP dashboard providing real-time business intelligence with KPI tracking, revenue analytics, order management, and multi-department performance monitoring at a glance.",
+    image: "/projects/erp/erp-hero.png",
     metrics: [
-      { label: "Total Revenue", value: "$284.5K" },
-      { label: "Active Users", value: "24,850" },
-      { label: "Total Sessions", value: "182.4K" },
-      { label: "Bounce Rate", value: "24.8%" },
+      { label: "Total Revenue", value: "$2.4M" },
+      { label: "Active Employees", value: "342" },
+      { label: "Monthly Orders", value: "1,847" },
+      { label: "Retention Rate", value: "94.2%" },
     ],
     type: "image",
   },
   {
-    id: "analytics",
-    label: "Advanced Analytics",
-    title: "Performance Metrics",
-    description: "In-depth analytics panel with interactive charts, revenue trends, user growth trajectories, and real-time system health monitoring with AI-powered insights.",
-    image: "/projects/dashboard/dashboard-analytics.png",
+    id: "sales",
+    label: "Sales Management",
+    title: "Revenue & Sales Analytics",
+    description: "Sales performance tracking with gross revenue analysis, net profit calculations, top product rankings, and conversion rate optimization. Real-time financial metrics with quarterly trends.",
+    image: "/projects/erp/erp-sales.png",
     features: [
-      "Real-time revenue tracking with trend indicators",
-      "User growth analytics with predictive modeling",
-      "System health monitoring with automated alerts",
-      "Custom report generation with export capabilities",
+      "Real-time revenue tracking with quarterly trends",
+      "Top product performance and revenue breakdown",
+      "Conversion rate optimization with funnel analytics",
+      "Automated sales report generation",
     ],
     type: "image",
   },
   {
-    id: "users",
-    label: "User Management",
-    title: "User Administration",
-    description: "Full-featured user management interface with role-based access control, activity logs, and granular permission settings for enterprise-scale team management.",
-    image: "/projects/dashboard/dashboard-users.png",
+    id: "inventory",
+    label: "Inventory Management",
+    title: "Product & Stock Control",
+    description: "Full inventory management system tracking 2,847 products across 24 categories. Low stock alerts, inventory valuation, and comprehensive product database with SKU management.",
+    image: "/projects/erp/erp-inventory.png",
     type: "image",
   },
   {
-    id: "charts",
-    label: "Data Visualization",
-    title: "Interactive Charts",
-    description: "Comprehensive charting system with revenue line charts, user growth bar graphs, session distribution pie charts, and real-time data streaming visualization.",
-    image: "/projects/dashboard/dashboard-overview.png",
+    id: "crm",
+    label: "Customer CRM",
+    title: "Customer Relationship Management",
+    description: "Enterprise CRM managing 12,847 customers with detailed profiles, order history, spending analytics, and engagement metrics. Track customer lifetime value and retention rates.",
+    image: "/projects/erp/erp-crm.png",
     metrics: [
-      { label: "Data Points", value: "1.2M" },
-      { label: "Chart Types", value: "8" },
-      { label: "Refresh Rate", value: "3s" },
-      { label: "Export Formats", value: "5" },
+      { label: "Total Customers", value: "12,847" },
+      { label: "Active Clients", value: "8,234" },
+      { label: "Avg Lifetime Value", value: "$28.4K" },
+      { label: "Retention Rate", value: "94.2%" },
+    ],
+    type: "image",
+  },
+  {
+    id: "employees",
+    label: "Employee Management",
+    title: "Workforce Administration",
+    description: "Complete employee directory with department management, role assignments, tenure tracking, and open position management. 342 team members across 8 departments.",
+    image: "/projects/erp/erp-employees.png",
+    type: "image",
+  },
+  {
+    id: "reports",
+    label: "Reports & Analytics",
+    title: "Business Intelligence",
+    description: "Advanced business analytics with quarterly performance dashboards, department overviews, operating cost analysis, and EBITDA tracking. Export and schedule custom reports.",
+    image: "/projects/erp/erp-reports.png",
+    metrics: [
+      { label: "Q2 Revenue", value: "$2.4M" },
+      { label: "Gross Margin", value: "54.2%" },
+      { label: "Operating Costs", value: "$1.1M" },
+      { label: "EBITDA", value: "$845K" },
     ],
     type: "image",
   },
   {
     id: "mobile",
     label: "Mobile Experience",
-    title: "Responsive Dashboard",
-    description: "Fully adaptive mobile interface optimized for on-the-go monitoring with touch-friendly interactions, push notifications, and real-time data synchronization across all devices.",
+    title: "On-the-Go Management",
+    description: "Mobile-optimized ERP interface for real-time business monitoring, order approvals, and team management from anywhere. Full feature parity with touch-optimized interactions.",
     type: "mobile-grid",
   },
   {
     id: "tech-stack",
     label: "Technology Stack",
     title: "Built With",
-    description: "Modern technology stack engineered for scalability, performance, and enterprise-grade reliability.",
+    description: "Enterprise-grade technology stack engineered for scalability, security, and high-performance business operations.",
     type: "tech",
   },
   {
     id: "features",
     label: "Key Features",
     title: "Platform Capabilities",
-    description: "Core features that power the Full Stack Dashboard platform.",
+    description: "Core features that power the Enterprise ERP Management System.",
     type: "features",
   },
 ];
 
 const FEATURES_LIST = [
-  { icon: "chart", text: "Real-time analytics with interactive data visualization" },
-  { icon: "users", text: "User management with role-based access control" },
-  { icon: "server", text: "RESTful API architecture with Django REST Framework" },
-  { icon: "database", text: "PostgreSQL database with optimized query performance" },
-  { icon: "shield", text: "JWT authentication with secure session management" },
-  { icon: "clock", text: "Real-time data updates with WebSocket integration" },
-  { icon: "cube", text: "Modular component architecture with React.js" },
-  { icon: "terminal", text: "Comprehensive logging and monitoring system" },
+  { icon: "chart", text: "Real-time business intelligence with interactive analytics dashboards" },
+  { icon: "users", text: "Complete CRM with customer lifecycle management and segmentation" },
+  { icon: "server", text: "Inventory management with automated low-stock alerts and reordering" },
+  { icon: "database", text: "PostgreSQL database with optimized reporting queries and caching" },
+  { icon: "shield", text: "Role-based access control with granular permission management" },
+  { icon: "clock", text: "Automated invoice generation with scheduled payment reminders" },
+  { icon: "cube", text: "Modular ERP architecture supporting finance, sales, and HR modules" },
+  { icon: "terminal", text: "Comprehensive audit logging with real-time activity monitoring" },
 ];
 
 const TECH_GROUPS = [
   { category: "Frontend", items: ["React.js", "TypeScript", "Tailwind CSS", "Chart.js"] },
-  { category: "Backend", items: ["Django", "Django REST Framework", "Python", "Gunicorn"] },
+  { category: "Backend", items: ["Django", "Django REST Framework", "Python", "Celery"] },
   { category: "Database", items: ["PostgreSQL", "Redis Cache", "SQLAlchemy", "Alembic"] },
   { category: "Auth & Security", items: ["JWT", "OAuth 2.0", "bcrypt", "CORS"] },
   { category: "DevOps", items: ["Docker", "Railway", "GitHub Actions", "Nginx"] },
-  { category: "Monitoring", items: ["Prometheus", "Grafana", "Sentry", "Logtail"] },
+  { category: "Business", items: ["Stripe API", "SendGrid", "OpenPyXL", "ReportLab"] },
 ];
 
 const ICON_MAP: Record<string, React.ReactNode> = {
@@ -293,10 +315,10 @@ function ImageSection({ section }: { section: ShowcaseSection }) {
 
 function MobileGridSection() {
   const mobileScreens = [
-    { src: "/projects/dashboard/dashboard-mobile.png", label: "Mobile Dashboard" },
-    { src: "/projects/dashboard/dashboard-analytics.png", label: "Analytics" },
-    { src: "/projects/dashboard/dashboard-hero.png", label: "Overview" },
-    { src: "/projects/dashboard/dashboard-users.png", label: "Users" },
+    { src: "/projects/erp/erp-mobile.png", label: "Mobile ERP" },
+    { src: "/projects/erp/erp-hero.png", label: "Dashboard" },
+    { src: "/projects/erp/erp-sales.png", label: "Sales" },
+    { src: "/projects/erp/erp-inventory.png", label: "Inventory" },
   ];
 
   return (
@@ -309,9 +331,9 @@ function MobileGridSection() {
       id="mobile"
     >
       <SectionLabel text="Mobile Experience" />
-      <h3 className="mt-2 text-xl font-bold text-white sm:text-2xl">Responsive Dashboard</h3>
+      <h3 className="mt-2 text-xl font-bold text-white sm:text-2xl">On-the-Go Management</h3>
       <p className="mt-2 max-w-2xl text-sm leading-relaxed text-text-muted">
-        Fully adaptive mobile interface optimized for on-the-go monitoring with touch-friendly interactions, push notifications, and real-time data synchronization across all devices.
+        Mobile-optimized ERP interface for real-time business monitoring, order approvals, and team management from anywhere. Full feature parity with touch-optimized interactions.
       </p>
 
       <div className="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-4">
@@ -353,7 +375,7 @@ function TechStackSection() {
       <SectionLabel text="Technology Stack" />
       <h3 className="mt-2 text-xl font-bold text-white sm:text-2xl">Built With</h3>
       <p className="mt-2 max-w-2xl text-sm leading-relaxed text-text-muted">
-        Carefully selected technologies engineered for scalability, performance, and enterprise-grade reliability.
+        Enterprise-grade technology stack engineered for scalability, security, and high-performance business operations.
       </p>
 
       <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -380,7 +402,7 @@ function FeaturesSection() {
       <SectionLabel text="Key Features" />
       <h3 className="mt-2 text-xl font-bold text-white sm:text-2xl">Platform Capabilities</h3>
       <p className="mt-2 max-w-2xl text-sm leading-relaxed text-text-muted">
-        Core features engineered for the Full Stack Dashboard platform.
+        Core features engineered for the Enterprise ERP Management System.
       </p>
 
       <div className="mt-6 grid gap-3 sm:grid-cols-2">

@@ -22,10 +22,10 @@ const PROJECTS = [
   },
   {
     id: 2,
-    title: "Full Stack Dashboard",
-    short_description: "Responsive admin dashboard with charts, analytics, user management",
-    description: "Responsive admin dashboard featuring interactive charts and analytics, user management interface, and a secure REST API. Built with React.js frontend and Django REST Framework backend with PostgreSQL and Tailwind CSS styling.",
-    tech_stack: ["React.js", "Django REST", "PostgreSQL", "Tailwind CSS", "Chart.js"],
+    title: "Enterprise ERP System",
+    short_description: "Full-featured ERP platform with finance, inventory, CRM, and employee management",
+    description: "Enterprise-grade ERP management system featuring finance overview, sales management, inventory tracking, order processing, customer CRM, employee management, invoicing, and business analytics. Built with React.js and Django REST Framework with PostgreSQL.",
+    tech_stack: ["React.js", "Django", "PostgreSQL", "Tailwind CSS", "Chart.js", "Redis"],
     github_url: "https://github.com/17akow/dashboard",
     demo_url: null,
     featured: true,
@@ -33,7 +33,7 @@ const PROJECTS = [
     year: "2025",
     gradient: "from-blue-600/20 to-cyan-600/20",
     iconColor: "text-blue-400/40",
-    previewImage: "/projects/dashboard/dashboard-hero.png",
+    previewImage: "/projects/erp/erp-hero.png",
   },
   {
     id: 3,
