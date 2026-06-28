@@ -5,6 +5,10 @@
   "installCommand": "npm ci",
   "rewrites": [
     {
+      "source": "/api/(.*)",
+      "destination": "https://my-portfolio-production-8a81.up.railway.app/$1"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
