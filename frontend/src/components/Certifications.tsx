@@ -691,7 +691,7 @@ export default function Certifications() {
   }, [play]);
 
   return (
-    <section id="certifications" ref={sectionRef} className="relative overflow-hidden px-6 py-24">
+    <section id="certifications" ref={sectionRef} className="relative overflow-hidden px-6 pt-48 pb-24 scroll-mt-20">
       <ImagePreloader images={CERTIFICATIONS.map((c) => c.image)} />
       <ScrollProgress sectionRef={sectionRef} />
       <Suspense fallback={<div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden />}><ThreeBackground /></Suspense>
