@@ -17,7 +17,7 @@ const PROJECTS = [
     year: "2025",
     gradient: "from-purple-600/20 to-blue-600/20",
     iconColor: "text-purple-400/40",
-    previewImage: "/projects/image1.png",
+    previewImage: "/projects/Image1.png",
   },
   {
     id: 2,
