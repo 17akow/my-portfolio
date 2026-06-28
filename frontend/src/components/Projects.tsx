@@ -17,6 +17,7 @@ const PROJECTS = [
     year: "2025",
     gradient: "from-purple-600/20 to-blue-600/20",
     iconColor: "text-purple-400/40",
+    previewImage: "/projects/image1.png",
   },
   {
     id: 2,
@@ -181,10 +182,25 @@ function ProjectCard({
         style={{ transformStyle: "preserve-3d" }}
       >
         <div
-          className={`flex aspect-video items-center justify-center bg-gradient-to-br ${project.gradient}`}
+          className={`relative aspect-video overflow-hidden bg-gradient-to-br ${project.gradient}`}
           style={{ transform: "translateZ(20px)" }}
         >
-          <HiCode size={40} className={project.iconColor} />
+          {project.previewImage ? (
+            <>
+              <img
+                src={project.previewImage}
+                alt={project.title}
+                loading="lazy"
+                decoding="async"
+                className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+              />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-black/20 to-transparent" />
+            </>
+          ) : (
+            <div className="flex h-full w-full items-center justify-center">
+              <HiCode size={40} className={project.iconColor} />
+            </div>
+          )}
         </div>
 
         <div className="p-5" style={{ transform: "translateZ(30px)" }}>
