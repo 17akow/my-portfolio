@@ -82,7 +82,6 @@ const CERTIFICATIONS: Certification[] = [
       "Ticketing Systems",
     ],
     image: "/IBM-Technical-Support.png",
-    credlyUrl: "https://www.credly.com/badges/ibm-technical-support",
   },
   {
     id: "build-ai-apps",
@@ -101,7 +100,6 @@ const CERTIFICATIONS: Certification[] = [
       "GPT-4",
     ],
     image: "/Build-with-ai-Scrimba.png",
-    verifyUrl: "https://coursera.org/verify/ai-apps-scrimba",
   },
   {
     id: "wix-landing-page",
@@ -114,7 +112,6 @@ const CERTIFICATIONS: Certification[] = [
       "Project-based course on creating AI-driven landing pages using Wix ADI (Artificial Design Intelligence). Learned to leverage AI for automated web design, layout generation, and content optimization.",
     skills: ["Wix ADI", "AI Design", "Landing Pages", "Web Design", "No-Code"],
     image: "/Automated-landing-page.png",
-    verifyUrl: "https://coursera.org/verify/wix-adi-project",
   },
 ];
 

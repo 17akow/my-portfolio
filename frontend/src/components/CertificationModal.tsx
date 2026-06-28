@@ -149,9 +149,9 @@ export default function CertificationModal({
                   >
                     Close
                   </button>
-                  {cert.verifyUrl && (
+                  {(cert.verifyUrl || cert.credlyUrl) && (
                     <a
-                      href={cert.verifyUrl}
+                      href={cert.verifyUrl ?? cert.credlyUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 rounded-xl border border-white/[0.08] bg-white/[0.03] px-6 py-2.5 text-xs font-semibold text-gray-300 backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/20"
