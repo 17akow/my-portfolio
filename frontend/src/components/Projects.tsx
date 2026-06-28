@@ -2,6 +2,7 @@ import { useState, useRef, type MouseEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { HiExternalLink, HiCode, HiEye } from "react-icons/hi";
 import ProjectShowcase from "./ProjectShowcase";
+import DashboardShowcase from "./DashboardShowcase";
 
 const PROJECTS = [
   {
@@ -32,6 +33,7 @@ const PROJECTS = [
     year: "2025",
     gradient: "from-blue-600/20 to-cyan-600/20",
     iconColor: "text-blue-400/40",
+    previewImage: "/projects/dashboard/dashboard-hero.png",
   },
   {
     id: 3,
@@ -126,13 +128,17 @@ export default function Projects() {
             className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
           >
             {filtered.map((project, i) => (
-              <ProjectCard key={project.id} project={project} index={i} onShowcase={project.id === 1 ? () => setShowcaseProject(project) : undefined} />
+              <ProjectCard key={project.id} project={project} index={i} onShowcase={project.id === 1 || project.id === 2 ? () => setShowcaseProject(project) : undefined} />
             ))}
           </motion.div>
         </AnimatePresence>
       </div>
 
-      <ProjectShowcase project={showcaseProject} onClose={() => setShowcaseProject(null)} />
+      {showcaseProject?.id === 2 ? (
+        <DashboardShowcase project={showcaseProject} onClose={() => setShowcaseProject(null)} />
+      ) : (
+        <ProjectShowcase project={showcaseProject} onClose={() => setShowcaseProject(null)} />
+      )}
     </section>
   );
 }
