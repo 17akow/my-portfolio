@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui,sans-serif}
+body{background:#050816;color:#e2e8f0;overflow-x:hidden}
+.screen{width:1280px;height:800px;position:relative;overflow:hidden;margin:40px auto;border-radius:24px;border:1px solid rgba(255,255,255,0.06);background:#050816}
+.s-label{position:absolute;top:12px;left:16px;font-size:10px;font-family:'Space Grotesk',monospace;letter-spacing:0.2em;text-transform:uppercase;color:rgba(0,242,255,0.3);z-index:10}
+.glass{background:rgba(255,255,255,0.03);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,0.06);border-radius:24px}
+.glass-sm{background:rgba(255,255,255,0.02);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.05);border-radius:16px}
+.cyan{color:#00f2ff}
+.purple{color:#a855f7}
+.gold{color:#f59e0b}
+.text-muted{color:rgba(255,255,255,0.4)}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1px solid rgba(255,255,255,0.04)}
+.logo{font-size:18px;font-weight:700;background:linear-gradient(135deg,#00f2ff,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.search-bar{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:8px 16px;width:340px;font-size:13px;color:rgba(255,255,255,0.6)}
+.nav-items{display:flex;gap:20px;font-size:13px;color:rgba(255,255,255,0.5)}
+.nav-items span{cursor:pointer}
+.nav-items span.active{color:#00f2ff}
+.actions{display:flex;gap:14px;align-items:center}
+.icon-btn{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;font-size:16px;position:relative}
+.icon-btn .badge{position:absolute;top:-2px;right:-2px;width:16px;height:16px;border-radius:50%;background:#a855f7;font-size:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600}
+.content{padding:20px 24px;overflow-y:auto;height:calc(100% - 65px)}
+h2{font-size:20px;font-weight:600;margin-bottom:4px}
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:12px}
+.product-card{padding:14px;border-radius:18px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.04);transition:all .2s}
+.product-card:hover{background:rgba(255,255,255,0.04);border-color:rgba(0,242,255,0.15)}
+.prod-img{width:100%;aspect-ratio:1;border-radius:14px;background:linear-gradient(135deg,rgba(0,242,255,0.05),rgba(168,85,247,0.05));display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:10px}
+.prod-name{font-size:13px;font-weight:600}
+.prod-cat{font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px}
+.prod-price{font-size:15px;font-weight:700;color:#00f2ff;margin-top:6px}
+.prod-price span{font-size:11px;color:rgba(255,255,255,0.3);text-decoration:line-through;margin-left:6px;font-weight:400}
+.tag{display:inline-flex;padding:3px 10px;border-radius:20px;font-size:9px;font-weight:600;letter-spacing:0.05em}
+.tag.deal{background:rgba(245,158,11,0.12);color:#f59e0b}
+.tag.new{background:rgba(0,242,255,0.1);color:#00f2ff}
+.tag.best{background:rgba(168,85,247,0.12);color:#a855f7}
+.deal-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:8px}
+.deal-item{display:flex;align-items:center;gap:12px;padding:10px;border-radius:14px;background:rgba(255,255,255,0.015);border:1px solid rgba(255,255,255,0.03)}
+.deal-item .d-img{width:48px;height:48px;border-radius:10px;background:rgba(245,158,11,0.06);display:flex;align-items:center;justify-content:center;font-size:18px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 24px;border-radius:12px;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:all .2s}
+.btn-primary{background:linear-gradient(135deg,#00f2ff,#a855f7);color:#050816}
+.btn-outline{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.7)}
+/* Product Detail */
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.gallery-main{aspect-ratio:1;border-radius:20px;background:linear-gradient(135deg,rgba(0,242,255,0.06),rgba(168,85,247,0.06));display:flex;align-items:center;justify-content:center;font-size:56px}
+.gallery-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+.gallery-thumbs div{aspect-ratio:1;border-radius:10px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;font-size:18px}
+.specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px}
+.spec-item{padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.03);font-size:12px;display:flex;justify-content:space-between}
+.review-card{padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.03)}
+.stars{color:#f59e0b;font-size:12px}
+/* Cart */
+.cart-layout{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;margin-top:12px}
+.cart-item{display:flex;gap:14px;padding:14px;border-radius:16px;background:rgba(255,255,255,0.015);border:1px solid rgba(255,255,255,0.03);margin-bottom:8px}
+.cart-item .ci-img{width:72px;height:72px;border-radius:12px;background:rgba(0,242,255,0.04);display:flex;align-items:center;justify-content:center;font-size:24px}
+.qty-selector{display:flex;gap:4px;align-items:center;margin-top:6px}
+.qty-selector span{width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer}
+.qty-selector .val{background:rgba(0,242,255,0.08);color:#00f2ff;font-weight:600}
+.order-summary{padding:18px;border-radius:18px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04)}
+.summary-row{display:flex;justify-content:space-between;padding:8px 0;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.03)}
+.summary-row.total{border:none;font-size:16px;font-weight:700;padding-top:12px}
+/* Checkout */
+.checkout-layout{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;margin-top:12px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:11px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em}
+.field input{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:10px 14px;font-size:13px;color:#e2e8f0}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.card-ui{padding:16px;border-radius:14px;background:linear-gradient(135deg,rgba(0,242,255,0.06),rgba(168,85,247,0.06));border:1px solid rgba(168,85,247,0.15)}
+/* Admin */
+.admin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+.stat-card{padding:14px 16px}
+.admin-layout{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{text-align:left;padding:8px 12px;color:rgba(255,255,255,0.3);font-weight:500;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;border-bottom:1px solid rgba(255,255,255,0.04)}
+td{padding:8px 12px;border-bottom:1px solid rgba(255,255,255,0.02);font-size:12px}
+.status{display:inline-flex;padding:2px 10px;border-radius:20px;font-size:10px;font-weight:600}
+.status.paid{background:rgba(16,185,129,0.12);color:#10b981}
+.status.pending{background:rgba(234,179,8,0.12);color:#eab308}
+.status.shipped{background:rgba(0,242,255,0.1);color:#00f2ff}
+.status.low{background:rgba(239,68,68,0.12);color:#ef4444}
+.status.active{background:rgba(16,185,129,0.12);color:#10b981}
+/* Mobile */
+.mobile-frame{width:390px;height:844px;border-radius:32px;overflow:hidden;position:relative}
+.mobile-inner{padding:16px;height:100%;display:flex;flex-direction:column}
+.mh{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.mh span{font-size:16px;font-weight:700;background:linear-gradient(135deg,#00f2ff,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.m-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.m-card{padding:10px;border-radius:14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03)}
+.m-card .m-img{height:80px;border-radius:10px;background:rgba(0,242,255,0.04);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:6px}
+.m-bottom{display:flex;gap:6px;margin-top:auto;padding-top:10px;border-top:1px solid rgba(255,255,255,0.04)}
+.m-bottom div{flex:1;text-align:center;padding:8px;border-radius:10px;font-size:10px;color:rgba(255,255,255,0.3)}
+.m-bottom div.active{background:rgba(0,242,255,0.08);color:#00f2ff}
+</style>
+</head>
+<body>
+
+<!-- Screen 1: Home Store -->
+<div class="screen" id="sc-home">
+  <span class="s-label">E-Commerce Home Store</span>
+  <div class="topbar">
+    <div class="logo">LUXORA</div>
+    <div class="nav-items"><span class="active">Home</span><span>Shop</span><span>Categories</span><span>Deals</span><span>New</span><span>Sale</span></div>
+    <input class="search-bar" placeholder="Search products, brands, categories..." />
+    <div class="actions"><div class="icon-btn">❤</div><div class="icon-btn">🛒<span class="badge">3</span></div><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#00f2ff,#a855f7);display:flex;align-items:center;justify-content:center;font-size:11px;color:#050816;font-weight:600">AK</div></div>
+  </div>
+  <div class="content">
+    <div class="glass" style="padding:24px;margin-bottom:16px;background:linear-gradient(135deg,rgba(0,242,255,0.04),rgba(168,85,247,0.04));display:flex;justify-content:space-between;align-items:center">
+      <div><span class="tag deal">Limited Edition</span><h2 style="font-size:24px;margin-top:8px">Summer Collection 2026</h2><p class="text-muted" style="font-size:13px;margin-top:4px">Up to 40% off on premium products</p><button class="btn btn-primary" style="margin-top:12px">Shop Now →</button></div>
+      <div style="font-size:72px;opacity:0.6">✦</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><h2>Featured Products</h2><span style="font-size:12px;color:#00f2ff;cursor:pointer">View All →</span></div>
+    <div class="product-grid">
+      <div class="product-card"><div class="prod-img">⌚</div><div class="prod-name">Chronos Elite Watch</div><div class="prod-cat">Accessories</div><div class="prod-price">$249 <span>$399</span></div></div>
+      <div class="product-card"><div class="prod-img">🎧</div><div class="prod-name">Sonic Pro Headphones</div><div class="prod-cat">Electronics</div><div class="prod-price">$189 <span>$259</span></div></div>
+      <div class="product-card"><div class="prod-img">👟</div><div class="prod-name">AeroStep Running Shoes</div><div class="prod-cat">Footwear</div><div class="prod-price">$159</div></div>
+      <div class="product-card"><div class="prod-img">💼</div><div class="prod-name">Executive Leather Bag</div><div class="prod-cat">Accessories</div><div class="prod-price">$329</div></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin:14px 0 8px"><h2>Flash Deals</h2><span style="font-size:11px;color:rgba(255,255,255,0.3)">Ends in 06:32:18</span></div>
+    <div class="deal-grid">
+      <div class="deal-item"><div class="d-img">📱</div><div><div style="font-size:12px;font-weight:600">PixelSmart Pro</div><div style="font-size:10px;color:rgba(255,255,255,0.3)">-35%</div><div style="font-size:13px;color:#f59e0b;font-weight:600">$649</div></div></div>
+      <div class="deal-item"><div class="d-img">💻</div><div><div style="font-size:12px;font-weight:600">UltraBook Air</div><div style="font-size:10px;color:rgba(255,255,255,0.3)">-25%</div><div style="font-size:13px;color:#f59e0b;font-weight:600">$1,299</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Screen 2: Product Details -->
+<div class="screen" id="sc-product">
+  <span class="s-label">Product Details</span>
+  <div class="topbar">
+    <div class="logo">LUXORA</div>
+    <div class="nav-items"><span>Home</span><span class="active">Shop</span><span>Categories</span><span>Deals</span></div>
+    <input class="search-bar" placeholder="Search products..." />
+    <div class="actions"><div class="icon-btn">❤</div><div class="icon-btn">🛒<span class="badge">3</span></div></div>
+  </div>
+  <div class="content" style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+    <div><div class="gallery-main">⌚</div><div class="gallery-thumbs"><div>⌚</div><div>⌚</div><div>⌚</div><div>⌚</div></div></div>
+    <div><span class="tag new">New Arrival</span><h2 style="font-size:24px;margin-top:6px">Chronos Elite Watch</h2><div class="stars" style="margin-top:4px">★★★★★ <span style="color:rgba(255,255,255,0.3);font-size:11px">(128 reviews)</span></div><div style="font-size:28px;font-weight:700;color:#00f2ff;margin:10px 0">$249 <span style="font-size:16px;color:rgba(255,255,255,0.3);text-decoration:line-through">$399</span><span class="tag deal" style="margin-left:8px">Save 38%</span></div><p class="text-muted" style="font-size:13px;line-height:1.6">Premium titanium-crafted timepiece with sapphire crystal display, 100m water resistance, and a precision Swiss quartz movement. Features include dual-time zone display.</p>
+    <div class="specs-grid"><div class="spec-item"><span>Material</span><span style="color:rgba(255,255,255,0.6)">Titanium Grade 5</span></div><div class="spec-item"><span>Movement</span><span style="color:rgba(255,255,255,0.6)">Swiss Quartz</span></div><div class="spec-item"><span>Water Resist</span><span style="color:rgba(255,255,255,0.6)">100m</span></div><div class="spec-item"><span>Display</span><span style="color:rgba(255,255,255,0.6)">Sapphire Crystal</span></div></div>
+    <div style="display:flex;gap:10px;margin-top:16px"><button class="btn btn-primary" style="flex:1">Add to Cart — $249</button><button class="btn btn-outline">♡</button></div>
+    <div class="review-card" style="margin-top:14px"><div class="stars">★★★★★</div><span style="font-size:12px">Absolutely stunning piece. The craftsmanship is unmatched.</span><div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:4px">— Michael T. · 2 days ago</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Screen 3: Shopping Cart -->
+<div class="screen" id="sc-cart">
+  <span class="s-label">Shopping Cart</span>
+  <div class="topbar">
+    <div class="logo">LUXORA</div>
+    <div class="nav-items"><span>Home</span><span>Shop</span><span>Cart</span></div>
+    <div class="actions"><div class="icon-btn">❤</div><span style="font-size:12px;color:rgba(255,255,255,0.5)">Cart (3)</span></div>
+  </div>
+  <div class="content">
+    <h2>Shopping Cart</h2><span class="text-muted" style="font-size:12px">3 items in your cart</span>
+    <div class="cart-layout">
+      <div>
+        <div class="cart-item"><div class="ci-img">⌚</div><div style="flex:1"><div style="font-size:13px;font-weight:600">Chronos Elite Watch</div><div class="text-muted" style="font-size:11px">Titanium · Swiss Quartz</div><div class="qty-selector"><span>−</span><span class="val">1</span><span>+</span></div></div><div style="text-align:right"><div style="font-size:14px;font-weight:700;color:#00f2ff">$249</div><div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:4px;cursor:pointer">Remove</div></div></div>
+        <div class="cart-item"><div class="ci-img">🎧</div><div style="flex:1"><div style="font-size:13px;font-weight:600">Sonic Pro Headphones</div><div class="text-muted" style="font-size:11px">Wireless · Noise Cancelling</div><div class="qty-selector"><span>−</span><span class="val">2</span><span>+</span></div></div><div style="text-align:right"><div style="font-size:14px;font-weight:700;color:#00f2ff">$378</div><div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:4px;cursor:pointer">Remove</div></div></div>
+        <div class="cart-item"><div class="ci-img">👟</div><div style="flex:1"><div style="font-size:13px;font-weight:600">AeroStep Running Shoes</div><div class="text-muted" style="font-size:11px">Size 10 · White/Cyan</div><div class="qty-selector"><span>−</span><span class="val">1</span><span>+</span></div></div><div style="text-align:right"><div style="font-size:14px;font-weight:700;color:#00f2ff">$159</div><div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:4px;cursor:pointer">Remove</div></div></div>
+      </div>
+      <div class="order-summary"><h3 style="font-size:14px;margin-bottom:8px">Order Summary</h3><div class="summary-row"><span>Subtotal (3 items)</span><span style="color:#e2e8f0;font-weight:500">$786</span></div><div class="summary-row"><span>Shipping</span><span style="color:#10b981">Free</span></div><div class="summary-row"><span>Tax (8.5%)</span><span style="color:#e2e8f0;font-weight:500">$66.81</span></div><div class="summary-row"><span>Discount</span><span style="color:#10b981">−$50.00</span></div><div class="summary-row total"><span>Total</span><span style="color:#00f2ff">$802.81</span></div><div style="margin-top:12px;display:flex;gap:6px"><input placeholder="Coupon code" style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:10px 14px;font-size:12px;color:#e2e8f0"/><button class="btn btn-outline" style="padding:10px 16px;font-size:12px">Apply</button></div><button class="btn btn-primary" style="width:100%;margin-top:12px;justify-content:center">Proceed to Checkout →</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- Screen 4: Checkout -->
+<div class="screen" id="sc-checkout">
+  <span class="s-label">Secure Checkout</span>
+  <div class="topbar"><div class="logo">LUXORA</div><div class="nav-items"><span>Home</span><span>Shop</span><span>Cart</span><span class="active">Checkout</span></div><div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;color:rgba(255,255,255,0.3)">🔒 Secure Checkout</span></div></div>
+  <div class="content">
+    <h2>Checkout</h2><span class="text-muted" style="font-size:12px">Complete your order securely</span>
+    <div class="checkout-layout">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="glass" style="padding:18px"><h3 style="font-size:14px;margin-bottom:10px">Shipping Address</h3><div class="field"><label>Full Name</label><input value="Alex Kim" /></div><div style="display:grid;grid-template-columns:2fr 1fr;gap:10px;margin-top:8px"><div class="field"><label>Address</label><input value="123 Ocean Avenue" /></div><div class="field"><label>ZIP</label><input value="10001" /></div></div></div>
+        <div class="glass" style="padding:18px"><h3 style="font-size:14px;margin-bottom:10px">Payment Method</h3>
+          <div class="card-ui"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:12px;font-weight:600">💳 Credit Card</span><span style="font-size:10px;color:rgba(255,255,255,0.3)">Visa · Mastercard · Amex</span></div>
+          <div class="field"><label>Card Number</label><input value="4242 4242 4242 4242" /></div>
+          <div class="field-row" style="margin-top:8px"><div class="field"><label>Expiry</label><input value="12/28" /></div><div class="field"><label>CVC</label><input value="•••" /></div></div>
+          <div style="display:flex;gap:8px;margin-top:10px"><span style="font-size:10px;color:rgba(255,255,255,0.3)">🔒 Encrypted & secure payment</span></div>
+        </div>
+        </div>
+      </div>
+      <div><div class="order-summary"><h3 style="font-size:14px;margin-bottom:8px">Order Summary</h3><div class="summary-row"><span>Chronos Elite Watch × 1</span><span style="color:#e2e8f0;font-weight:500">$249</span></div><div class="summary-row"><span>Sonic Pro Headphones × 2</span><span style="color:#e2e8f0;font-weight:500">$378</span></div><div class="summary-row"><span>AeroStep Shoes × 1</span><span style="color:#e2e8f0;font-weight:500">$159</span></div><div class="summary-row"><span>Shipping</span><span style="color:#10b981">Free</span></div><div class="summary-row"><span>Tax</span><span style="color:#e2e8f0;font-weight:500">$66.81</span></div><div class="summary-row total"><span>Total</span><span style="color:#00f2ff">$802.81</span></div><button class="btn btn-primary" style="width:100%;margin-top:12px;justify-content:center">Pay $802.81 →</button></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Screen 5: Admin Panel -->
+<div class="screen" id="sc-admin">
+  <span class="s-label">E-Commerce Admin Panel</span>
+  <div class="topbar"><div class="logo">LUXORA</div><div style="font-size:12px;color:rgba(255,255,255,0.3);font-family:'Space Grotesk',monospace">Admin Dashboard</div><div class="actions"><div class="icon-btn">🔔</div><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#00f2ff,#a855f7);display:flex;align-items:center;justify-content:center;font-size:11px;color:#050816;font-weight:600">AK</div></div></div>
+  <div class="content">
+    <div class="admin-grid">
+      <div class="stat-card glass"><div style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em">Total Revenue</div><div style="font-size:20px;font-weight:700;color:#00f2ff;margin-top:4px">$124.5K</div><div style="font-size:11px;color:#10b981;margin-top:2px">↑ 18.3% this month</div></div>
+      <div class="stat-card glass"><div style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em">Total Orders</div><div style="font-size:20px;font-weight:700;margin-top:4px">3,847</div><div style="font-size:11px;color:#10b981;margin-top:2px">↑ 12.4%</div></div>
+      <div class="stat-card glass"><div style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em">Active Customers</div><div style="font-size:20px;font-weight:700;margin-top:4px">8,234</div><div style="font-size:11px;color:#10b981;margin-top:2px">↑ 8.7%</div></div>
+      <div class="stat-card glass"><div style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em">Low Stock Items</div><div style="font-size:20px;font-weight:700;color:#ef4444;margin-top:4px">23</div><div style="font-size:11px;color:#ef4444;margin-top:2px">Requires attention</div></div>
+    </div>
+    <div class="admin-layout">
+      <div class="glass" style="padding:14px"><span style="font-size:12px;font-weight:600;margin-bottom:8px;display:block">Recent Orders</span>
+        <table><thead><tr><th>Order</th><th>Customer</th><th>Amount</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:500">#ORD-3841</td><td>John Davis</td><td style="color:#00f2ff;font-weight:600">$802.81</td><td><span class="status paid">Paid</span></td></tr>
+          <tr><td style="font-weight:500">#ORD-3840</td><td>Sarah Miller</td><td style="color:#00f2ff;font-weight:600">$249.00</td><td><span class="status shipped">Shipped</span></td></tr>
+          <tr><td style="font-weight:500">#ORD-3839</td><td>Robert Wilson</td><td style="color:#00f2ff;font-weight:600">$1,299.00</td><td><span class="status pending">Pending</span></td></tr>
+          <tr><td style="font-weight:500">#ORD-3838</td><td>Emily Chen</td><td style="color:#00f2ff;font-weight:600">$537.00</td><td><span class="status paid">Paid</span></td></tr>
+        </tbody></table>
+      </div>
+      <div class="glass" style="padding:14px"><span style="font-size:12px;font-weight:600;margin-bottom:8px;display:block">Sales Analytics</span>
+        <div style="height:120px;position:relative;overflow:hidden;border-radius:10px;background:linear-gradient(180deg,rgba(0,242,255,0.06),transparent)">
+          <svg viewBox="0 0 500 120" style="position:absolute;bottom:0;left:0;right:0">
+            <defs><linearGradient id="eg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00f2ff" stop-opacity="0.2"/><stop offset="100%" stop-color="#00f2ff" stop-opacity="0"/></linearGradient></defs>
+            <path d="M0,110 L0,90 Q40,80 80,85 Q120,60 160,70 Q200,50 240,55 Q280,35 320,40 Q360,25 400,30 Q440,15 500,20 L500,120 L0,120 Z" fill="url(#eg)"/>
+            <path d="M0,90 Q40,80 80,85 Q120,60 160,70 Q200,50 240,55 Q280,35 320,40 Q360,25 400,30 Q440,15 500,20" fill="none" stroke="#00f2ff" stroke-width="2"/>
+          </svg>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:6px"><span style="font-size:9px;color:rgba(255,255,255,0.3)">Jan</span><span style="font-size:9px;color:rgba(255,255,255,0.3)">Feb</span><span style="font-size:9px;color:rgba(255,255,255,0.3)">Mar</span><span style="font-size:9px;color:rgba(255,255,255,0.3)">Apr</span><span style="font-size:9px;color:rgba(255,255,255,0.3)">May</span><span style="font-size:9px;color:rgba(255,255,255,0.3)">Jun</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Screen 6: Mobile Shopping -->
+<div class="screen" id="sc-mobile" style="width:390px;height:844px;border-radius:32px">
+  <span class="s-label">Mobile Shopping</span>
+  <div class="mobile-frame">
+    <div class="mobile-inner">
+      <div class="mh"><span>LUXORA</span><div style="display:flex;gap:10px"><span style="font-size:16px">❤</span><span style="font-size:16px">🛒</span></div></div>
+      <input class="search-bar" style="width:100%;margin-bottom:12px" placeholder="Search products..." />
+      <span class="tag deal">Summer Sale — Up to 40% Off</span>
+      <div style="margin-top:10px"><span style="font-size:14px;font-weight:600">Featured Products</span></div>
+      <div class="m-grid">
+        <div class="m-card"><div class="m-img">⌚</div><div style="font-size:11px;font-weight:600">Chronos Watch</div><div style="font-size:12px;color:#00f2ff;font-weight:600">$249</div></div>
+        <div class="m-card"><div class="m-img">🎧</div><div style="font-size:11px;font-weight:600">Sonic Headphones</div><div style="font-size:12px;color:#00f2ff;font-weight:600">$189</div></div>
+        <div class="m-card"><div class="m-img">👟</div><div style="font-size:11px;font-weight:600">AeroStep Shoes</div><div style="font-size:12px;color:#00f2ff;font-weight:600">$159</div></div>
+        <div class="m-card"><div class="m-img">💼</div><div style="font-size:11px;font-weight:600">Leather Bag</div><div style="font-size:12px;color:#00f2ff;font-weight:600">$329</div></div>
+      </div>
+      <div class="m-bottom"><div class="active">🏠 Home</div><div>🔍 Search</div><div>🛒 Cart</div><div>👤 Profile</div></div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
