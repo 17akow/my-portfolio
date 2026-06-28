@@ -628,7 +628,7 @@ const CoverFlow = React.memo(function CoverFlow({ cards, onViewCert }: { cards: 
 
   return (
     <div ref={containerRef} className="relative select-none min-h-[380px] md:min-h-[580px]" role="region" aria-label="Certificate carousel" onKeyDown={handleKeyDown}>
-      <div className={`relative flex items-center justify-center ${isMobile ? "overflow-hidden" : "overflow-visible"}`} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+      <div             className={`relative min-h-[inherit] ${isMobile ? "overflow-hidden" : "overflow-visible"}`} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
         {cards.map((cert, i) => {
           const offset = i - current;
           const anim = isMobile
@@ -742,7 +742,7 @@ export default function Certifications() {
 
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="relative mt-16">
+          className="relative mt-16 md:mt-48">
           <div className="flex items-center gap-3 mb-6">
             <HolographicLabel text="Certificate Gallery" />
             <div className="h-px flex-1 bg-gradient-to-r from-accent/30 via-primary/20 to-transparent" />
