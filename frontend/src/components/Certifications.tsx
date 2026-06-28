@@ -522,10 +522,10 @@ const CertificationCard = React.memo(function CertificationCard({ cert, onView, 
 
   return (
     <div ref={cardRef} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}
-      className="gradient-border-glow card-shine group relative overflow-hidden rounded-2xl border border-white/[0.04] bg-white/[0.015] transition-shadow duration-300 hover:shadow-[0_0_40px_-8px_rgba(6,182,212,0.15)]"
-      style={{ transformStyle: "preserve-3d" }}>
+      className={`gradient-border-glow card-shine group relative overflow-hidden rounded-2xl border border-white/[0.04] bg-white/[0.015] transition-shadow duration-300 hover:shadow-[0_0_40px_-8px_rgba(6,182,212,0.15)] ${isCompact ? "h-[320px]" : "h-[520px]"} flex flex-col`}
+      style={{ transformStyle: "preserve-3d", willChange: "transform", backfaceVisibility: "hidden" }}>
       <div className="card-shine-glow absolute inset-0 pointer-events-none transition-all duration-300" />
-      <div className={`relative overflow-hidden ${isCompact ? "h-36" : "h-48 sm:h-52"}`} style={{ transform: "translateZ(12px)" }}>
+      <div className={`relative overflow-hidden shrink-0 ${isCompact ? "h-[140px]" : "h-[200px]"}`} style={{ transform: "translateZ(12px)" }}>
         {!imgLoaded && !imgError && <SkeletonBox />}
         {imgError ? (
           <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-white/[0.01] to-white/[0.03]">
@@ -540,7 +540,7 @@ const CertificationCard = React.memo(function CertificationCard({ cert, onView, 
             loading="lazy" decoding="async" onLoad={() => setImgLoaded(true)}
             onError={() => { setImgError(true); setImgLoaded(true); }} />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-deep-navy via-deep-navy/15 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/60 via-deep-navy/5 to-transparent" />
         <div className="absolute right-3 top-3" style={{ transform: "translateZ(20px)" }}>
           <span className="inline-flex items-center gap-1.5 rounded-full bg-black/50 px-2.5 py-1 text-[10px] font-medium text-white/90 backdrop-blur-sm border border-white/[0.06]">
             {PROVIDER_ICONS[cert.providerIcon]?.(10) ?? null}
@@ -555,7 +555,7 @@ const CertificationCard = React.memo(function CertificationCard({ cert, onView, 
         </div>
       </div>
       <div className={isCompact ? "p-4" : "p-5"} style={{ transform: "translateZ(22px)" }}>
-        <h3 className={`font-bold text-gray-100 transition-colors group-hover:text-primary ${isCompact ? "text-sm" : "text-base sm:text-lg"}`}>
+        <h3 className={`font-bold text-gray-100 transition-colors group-hover:text-primary line-clamp-2 ${isCompact ? "text-sm" : "text-base sm:text-lg"}`}>
           {cert.title}
         </h3>
         <div className={`mt-2 flex items-center gap-2 text-text-muted ${isCompact ? "text-[10px]" : "text-xs"}`}>
@@ -563,10 +563,16 @@ const CertificationCard = React.memo(function CertificationCard({ cert, onView, 
           <span>{cert.completionDate}</span>
           <span className="text-white/[0.06]">|</span>
           <span className="font-medium text-accent/70">{cert.issuer}</span>
+          {!isCompact && (
+            <span className="ml-auto inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[9px] font-semibold text-emerald-400 border border-emerald-500/15">
+              <HiBadgeCheck size={8} />
+              Verified
+            </span>
+          )}
         </div>
         {!isCompact && (
           <>
-            <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-gray-400">{cert.description}</p>
+            <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-gray-400">{cert.description}</p>
             <div className="mt-4 flex flex-wrap gap-1.5">
               {cert.skills.slice(0, 4).map((skill) => (
                 <span key={skill} className="rounded-md bg-white/[0.03] px-2 py-0.5 text-[10px] font-medium text-gray-400 border border-white/[0.04]">{skill}</span>
@@ -584,9 +590,9 @@ const CertificationCard = React.memo(function CertificationCard({ cert, onView, 
           {(cert.verifyUrl || cert.credlyUrl) && (
             <MagneticWrap strength={0.1}>
               <a href={cert.verifyUrl ?? cert.credlyUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}
-                className="inline-flex items-center gap-1.5 rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-2.5 text-xs font-semibold text-gray-300 backdrop-blur-sm transition-all hover:bg-white/[0.06] hover:border-white/20"
-                aria-label={`Verify ${cert.title}`}>
-                Verify <HiExternalLink size={12} />
+                className="inline-flex items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.02] p-2.5 text-gray-400 backdrop-blur-sm transition-all hover:bg-white/[0.06] hover:border-white/20 hover:text-primary"
+                aria-label={`Verify ${cert.title}`} title="Verify on provider site">
+                <HiExternalLink size={14} />
               </a>
             </MagneticWrap>
           )}
@@ -625,7 +631,7 @@ const CoverFlow = React.memo(function CoverFlow({ cards, onViewCert }: { cards: 
   }, [goPrev, goNext]);
 
   return (
-    <div ref={containerRef} className="relative select-none min-h-[280px] md:min-h-[480px]" role="region" aria-label="Certificate carousel" onKeyDown={handleKeyDown}>
+    <div ref={containerRef} className="relative select-none min-h-[320px] md:min-h-[540px]" role="region" aria-label="Certificate carousel" onKeyDown={handleKeyDown}>
       <div className={`relative flex items-center justify-center ${isMobile ? "overflow-hidden" : "overflow-visible"}`} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
         {cards.map((cert, i) => {
           const offset = i - current;
@@ -634,14 +640,14 @@ const CoverFlow = React.memo(function CoverFlow({ cards, onViewCert }: { cards: 
           : offset === 0
           ? { x: 0, scale: 1, rotateY: 0, opacity: 1 }
           : Math.abs(offset) === 1
-          ? { x: offset * 340, scale: 0.82, rotateY: offset * -12, opacity: 0.5 }
+          ? { x: offset * 360, scale: 0.75, rotateY: offset * -15, opacity: 0.4 }
           : Math.abs(offset) === 2
-          ? { x: offset * 420, scale: 0.65, rotateY: offset * -18, opacity: 0.2 }
-          : { x: offset * 480, scale: 0.5, rotateY: offset * -22, opacity: 0 };
+          ? { x: offset * 450, scale: 0.55, rotateY: offset * -20, opacity: 0.15 }
+          : { x: offset * 520, scale: 0.4, rotateY: offset * -25, opacity: 0 };
           return (
             <motion.div key={cert.id} animate={anim}
               transition={{ type: "spring", stiffness: 320, damping: 32, mass: 0.7 }}
-              className="absolute cursor-pointer inset-x-0 mx-auto w-[calc(100%-32px)] sm:w-[340px] overflow-hidden rounded-2xl" style={{ transformStyle: "preserve-3d", zIndex: offset === 0 ? 20 : Math.abs(offset) === 1 ? 10 : Math.abs(offset) === 2 ? 5 : 0 }}
+              className="absolute cursor-pointer inset-x-0 mx-auto w-[calc(100%-32px)] sm:w-[350px] overflow-hidden rounded-2xl" style={{ transformStyle: "preserve-3d", willChange: "transform", backfaceVisibility: "hidden", zIndex: offset === 0 ? 30 : Math.abs(offset) === 1 ? 15 : Math.abs(offset) === 2 ? 5 : 0, filter: isMobile ? "none" : offset === 0 ? "none" : Math.abs(offset) === 1 ? "blur(0.5px)" : "blur(1.5px)" }}
               onClick={() => { if (i !== current) setCurrent(i); else onViewCert(cert); }}
               role="button" tabIndex={i === current ? 0 : -1}
               aria-label={`${cert.title}${i === current ? " (active)" : ""}`} aria-current={i === current ? "true" : undefined}>
