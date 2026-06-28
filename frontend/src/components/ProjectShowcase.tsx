@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   HiX,
   HiExternalLink,
-  HiCode,
   HiChat,
   HiShieldCheck,
   HiDatabase,
@@ -148,7 +147,6 @@ const ICON_MAP: Record<string, React.ReactNode> = {
   clock: <HiClock />,
   sparkles: <HiSparkles />,
   terminal: <HiTerminal />,
-  code: <HiCode />,
 };
 
 function SectionLabel({ text }: { text: string }) {
@@ -174,7 +172,7 @@ function LazyImage({ src, alt }: { src: string; alt: string }) {
       {error ? (
         <div className="flex aspect-video items-center justify-center rounded-2xl bg-gradient-to-br from-white/[0.01] to-white/[0.03]">
           <div className="flex flex-col items-center gap-2 text-text-muted">
-            <HiCode size={28} className="opacity-30" />
+            <HiTerminal size={28} className="opacity-30" />
             <span className="text-xs opacity-50">Preview unavailable</span>
           </div>
         </div>
@@ -506,17 +504,6 @@ export default function ProjectShowcase({
                   transition={{ duration: 0.5 }}
                   className="mt-10 flex flex-wrap items-center gap-4 pb-4"
                 >
-                  {project.github_url && (
-                    <a
-                      href={project.github_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-primary to-accent px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/15 transition-all hover:shadow-xl hover:shadow-primary/25"
-                    >
-                      <HiCode size={18} />
-                      View Source Code
-                    </a>
-                  )}
                   {project.demo_url ? (
                     <a
                       href={project.demo_url}
