@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { HiExternalLink, HiCode, HiEye } from "react-icons/hi";
 import ProjectShowcase from "./ProjectShowcase";
 import DashboardShowcase from "./DashboardShowcase";
+import ECommerceShowcase from "./ECommerceShowcase";
 
 const PROJECTS = [
   {
@@ -43,11 +44,12 @@ const PROJECTS = [
     tech_stack: ["React.js", "Django", "PostgreSQL", "JWT", "Tailwind CSS"],
     github_url: "https://github.com/17akow/ecommerce",
     demo_url: null,
-    featured: false,
+    featured: true,
     category: "Full-Stack",
     year: "2025",
     gradient: "from-green-600/20 to-teal-600/20",
     iconColor: "text-green-400/40",
+    previewImage: "/projects/ecommerce/ecommerce-hero.png",
   },
   {
     id: 4,
@@ -128,7 +130,7 @@ export default function Projects() {
             className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
           >
             {filtered.map((project, i) => (
-              <ProjectCard key={project.id} project={project} index={i} onShowcase={project.id === 1 || project.id === 2 ? () => setShowcaseProject(project) : undefined} />
+              <ProjectCard key={project.id} project={project} index={i} onShowcase={project.id === 1 || project.id === 2 || project.id === 3 ? () => setShowcaseProject(project) : undefined} />
             ))}
           </motion.div>
         </AnimatePresence>
@@ -136,6 +138,8 @@ export default function Projects() {
 
       {showcaseProject?.id === 2 ? (
         <DashboardShowcase project={showcaseProject} onClose={() => setShowcaseProject(null)} />
+      ) : showcaseProject?.id === 3 ? (
+        <ECommerceShowcase project={showcaseProject} onClose={() => setShowcaseProject(null)} />
       ) : (
         <ProjectShowcase project={showcaseProject} onClose={() => setShowcaseProject(null)} />
       )}
