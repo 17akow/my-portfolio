@@ -235,18 +235,6 @@ function ProjectCard({
                 Showcase
               </button>
             )}
-            {project.github_url && (
-              <a
-                href={project.github_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="flex items-center gap-1.5 text-xs font-medium text-gray-400 transition-colors hover:text-white"
-              >
-                <HiCode size={14} />
-                Source
-              </a>
-            )}
             {project.demo_url && (
               <a
                 href={project.demo_url}
