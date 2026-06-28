@@ -519,10 +519,10 @@ const CertificationCard = React.memo(function CertificationCard({ cert, onView, 
 
   return (
     <div ref={cardRef} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}
-      className={`gradient-border-glow card-shine group relative overflow-hidden rounded-2xl border border-white/[0.04] bg-white/[0.015] transition-shadow duration-300 hover:shadow-[0_0_40px_-8px_rgba(6,182,212,0.15)] ${isCompact ? "h-[320px]" : "h-[520px]"} flex flex-col`}
+      className={`gradient-border-glow card-shine group relative overflow-hidden rounded-2xl border border-white/[0.04] bg-white/[0.015] transition-shadow duration-300 hover:shadow-[0_0_40px_-8px_rgba(6,182,212,0.15)] ${isCompact ? "h-[380px]" : "h-[580px]"} flex flex-col`}
       style={{ transformStyle: "preserve-3d", willChange: "transform", backfaceVisibility: "hidden" }}>
       <div className="card-shine-glow absolute inset-0 pointer-events-none transition-all duration-300" />
-      <div className={`relative overflow-hidden shrink-0 ${isCompact ? "h-[140px]" : "h-[200px]"}`} style={{ transform: "translateZ(12px)" }}>
+      <div className={`relative overflow-hidden shrink-0 ${isCompact ? "h-[180px]" : "h-[240px]"}`} style={{ transform: "translateZ(12px)" }}>
         {!imgLoaded && !imgError && <SkeletonBox />}
         {imgError ? (
           <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-white/[0.01] to-white/[0.03]">
@@ -533,11 +533,10 @@ const CertificationCard = React.memo(function CertificationCard({ cert, onView, 
           </div>
         ) : (
           <img src={cert.image} alt={cert.title}
-            className={`h-full w-full object-cover transition-all duration-700 group-hover:scale-105 ${imgLoaded ? "opacity-100" : "opacity-0"}`}
+            className={`h-full w-full object-contain transition-all duration-700 ${imgLoaded ? "opacity-100" : "opacity-0"}`}
             loading="lazy" decoding="async" onLoad={() => setImgLoaded(true)}
             onError={() => { setImgError(true); setImgLoaded(true); }} />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/60 via-deep-navy/5 to-transparent" />
         <div className="absolute right-3 top-3" style={{ transform: "translateZ(20px)" }}>
           <span className="inline-flex items-center gap-1.5 rounded-full bg-black/50 px-2.5 py-1 text-[10px] font-medium text-white/90 backdrop-blur-sm border border-white/[0.06]">
             {PROVIDER_ICONS[cert.providerIcon]?.(10) ?? null}
@@ -628,7 +627,7 @@ const CoverFlow = React.memo(function CoverFlow({ cards, onViewCert }: { cards: 
   }, [goPrev, goNext]);
 
   return (
-    <div ref={containerRef} className="relative select-none min-h-[320px] md:min-h-[540px]" role="region" aria-label="Certificate carousel" onKeyDown={handleKeyDown}>
+    <div ref={containerRef} className="relative select-none min-h-[380px] md:min-h-[580px]" role="region" aria-label="Certificate carousel" onKeyDown={handleKeyDown}>
       <div className={`relative flex items-center justify-center ${isMobile ? "overflow-hidden" : "overflow-visible"}`} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
         {cards.map((cert, i) => {
           const offset = i - current;
