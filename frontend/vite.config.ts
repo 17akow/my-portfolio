@@ -4,6 +4,16 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          three: ["three", "@react-three/fiber", "@react-three/drei"],
+          gsap: ["gsap"],
+        },
+      },
+    },
+  },
   server: {
     port: 5173,
     proxy: {
