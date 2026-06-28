@@ -64,7 +64,7 @@ const CERTIFICATIONS: Certification[] = [
       "Security",
     ],
     image: "/Google-IT-Certificate.png",
-    verifyUrl: "https://coursera.org/verify/professional-cert/ITSUPPORT",
+    verifyUrl: "https://coursera.org/share/62c343f60b3420e388ec03d88bc11f4f",
   },
   {
     id: "ibm-technical-support",
@@ -576,7 +576,7 @@ const CertificationCard = React.memo(function CertificationCard({ cert, onView, 
           </>
         )}
         <div className={`flex items-center gap-3 ${isCompact ? "mt-4" : "mt-5"}`}>
-          <MagneticWrap className="flex-1" strength={0.15}>
+          <MagneticWrap className="min-w-0 flex-1" strength={0.15}>
             <button onClick={onView} className="w-full rounded-xl bg-gradient-to-r from-primary to-accent px-4 py-2.5 text-xs font-semibold text-white shadow-lg shadow-primary/10 transition-all hover:shadow-xl hover:shadow-primary/20" aria-label={`View ${cert.title}`}>
               {isCompact ? "View" : "View Certificate"}
             </button>
@@ -625,23 +625,23 @@ const CoverFlow = React.memo(function CoverFlow({ cards, onViewCert }: { cards: 
   }, [goPrev, goNext]);
 
   return (
-    <div ref={containerRef} className="relative select-none" role="region" aria-label="Certificate carousel" onKeyDown={handleKeyDown}>
-      <div className="relative flex items-center justify-center overflow-visible" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+    <div ref={containerRef} className="relative select-none min-h-[280px] md:min-h-[480px]" role="region" aria-label="Certificate carousel" onKeyDown={handleKeyDown}>
+      <div className={`relative flex items-center justify-center ${isMobile ? "overflow-hidden" : "overflow-visible"}`} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
         {cards.map((cert, i) => {
           const offset = i - current;
           const anim = isMobile
-            ? { x: offset * 100, scale: 1, opacity: offset === 0 ? 1 : 0 }
-            : offset === 0
-              ? { x: 0, scale: 1, rotateY: 0, opacity: 1, zIndex: 20 }
-              : Math.abs(offset) === 1
-                ? { x: offset * 340, scale: 0.82, rotateY: offset * -12, opacity: 0.5, zIndex: 10 }
-                : Math.abs(offset) === 2
-                  ? { x: offset * 420, scale: 0.65, rotateY: offset * -18, opacity: 0.2, zIndex: 5 }
-                  : { x: offset * 480, scale: 0.5, rotateY: offset * -22, opacity: 0, zIndex: 0 };
+          ? { x: `${offset * 100}%`, scale: offset === 0 ? 1 : 0.9, opacity: offset === 0 ? 1 : 0 }
+          : offset === 0
+          ? { x: 0, scale: 1, rotateY: 0, opacity: 1 }
+          : Math.abs(offset) === 1
+          ? { x: offset * 340, scale: 0.82, rotateY: offset * -12, opacity: 0.5 }
+          : Math.abs(offset) === 2
+          ? { x: offset * 420, scale: 0.65, rotateY: offset * -18, opacity: 0.2 }
+          : { x: offset * 480, scale: 0.5, rotateY: offset * -22, opacity: 0 };
           return (
             <motion.div key={cert.id} animate={anim}
               transition={{ type: "spring", stiffness: 320, damping: 32, mass: 0.7 }}
-              className={isMobile ? "w-full shrink-0" : "absolute cursor-pointer"} style={isMobile ? {} : { transformStyle: "preserve-3d" }}
+              className="absolute cursor-pointer inset-x-0 mx-auto w-[calc(100%-32px)] sm:w-[340px] overflow-hidden rounded-2xl" style={{ transformStyle: "preserve-3d", zIndex: offset === 0 ? 20 : Math.abs(offset) === 1 ? 10 : Math.abs(offset) === 2 ? 5 : 0 }}
               onClick={() => { if (i !== current) setCurrent(i); else onViewCert(cert); }}
               role="button" tabIndex={i === current ? 0 : -1}
               aria-label={`${cert.title}${i === current ? " (active)" : ""}`} aria-current={i === current ? "true" : undefined}>
