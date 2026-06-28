@@ -4,6 +4,7 @@ import { HiExternalLink, HiCode, HiEye } from "react-icons/hi";
 import ProjectShowcase from "./ProjectShowcase";
 import DashboardShowcase from "./DashboardShowcase";
 import ECommerceShowcase from "./ECommerceShowcase";
+import PortfolioShowcase from "./PortfolioShowcase";
 
 const PROJECTS = [
   {
@@ -54,9 +55,9 @@ const PROJECTS = [
   {
     id: 4,
     title: "Personal Portfolio Website",
-    short_description: "Modern portfolio website to showcase skills and experience",
-    description: "Modern personal portfolio website built with React, TypeScript, and Tailwind CSS. Showcases skills, projects, and professional experience with a clean responsive design and glassmorphism UI.",
-    tech_stack: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    short_description: "Modern developer portfolio showcasing projects, certifications, technical skills, and interactive 3D experiences with a premium glassmorphism interface.",
+    description: "A premium personal portfolio built with React, TypeScript, Tailwind CSS, Framer Motion, and Three.js. Designed with an Apple Vision Pro-inspired glassmorphism interface, interactive animations, responsive layouts, and optimized performance to present projects, certifications, and professional experience.",
+    tech_stack: ["React", "TypeScript", "Tailwind CSS", "Framer Motion", "Three.js"],
     github_url: null,
     demo_url: "https://akbarbek.dev",
     featured: true,
@@ -64,6 +65,7 @@ const PROJECTS = [
     year: "2025",
     gradient: "from-orange-600/20 to-pink-600/20",
     iconColor: "text-orange-400/40",
+    previewImage: "/projects/portfolio/portfolio-hero.png",
   },
 ];
 
@@ -130,7 +132,7 @@ export default function Projects() {
             className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
           >
             {filtered.map((project, i) => (
-              <ProjectCard key={project.id} project={project} index={i} onShowcase={project.id === 1 || project.id === 2 || project.id === 3 ? () => setShowcaseProject(project) : undefined} />
+              <ProjectCard key={project.id} project={project} index={i} onShowcase={project.id === 1 || project.id === 2 || project.id === 3 || project.id === 4 ? () => setShowcaseProject(project) : undefined} />
             ))}
           </motion.div>
         </AnimatePresence>
@@ -138,8 +140,10 @@ export default function Projects() {
 
       {showcaseProject?.id === 2 ? (
         <DashboardShowcase project={showcaseProject} onClose={() => setShowcaseProject(null)} />
-      ) : showcaseProject?.id === 3 ? (
+      )       : showcaseProject?.id === 3 ? (
         <ECommerceShowcase project={showcaseProject} onClose={() => setShowcaseProject(null)} />
+      ) : showcaseProject?.id === 4 ? (
+        <PortfolioShowcase project={showcaseProject} onClose={() => setShowcaseProject(null)} />
       ) : (
         <ProjectShowcase project={showcaseProject} onClose={() => setShowcaseProject(null)} />
       )}
