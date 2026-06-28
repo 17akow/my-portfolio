@@ -1,6 +1,7 @@
 import { useState, useRef, type MouseEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { HiExternalLink, HiCode } from "react-icons/hi";
+import { HiExternalLink, HiCode, HiEye } from "react-icons/hi";
+import ProjectShowcase from "./ProjectShowcase";
 
 const PROJECTS = [
   {
@@ -63,6 +64,7 @@ const PROJECTS = [
 
 export default function Projects() {
   const [filter, setFilter] = useState<string | null>(null);
+  const [showcaseProject, setShowcaseProject] = useState<(typeof PROJECTS)[number] | null>(null);
 
   const categories = [...new Set(PROJECTS.map((p) => p.category).filter(Boolean))];
 
@@ -123,11 +125,13 @@ export default function Projects() {
             className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
           >
             {filtered.map((project, i) => (
-              <ProjectCard key={project.id} project={project} index={i} />
+              <ProjectCard key={project.id} project={project} index={i} onShowcase={project.id === 1 ? () => setShowcaseProject(project) : undefined} />
             ))}
           </motion.div>
         </AnimatePresence>
       </div>
+
+      <ProjectShowcase project={showcaseProject} onClose={() => setShowcaseProject(null)} />
     </section>
   );
 }
@@ -135,9 +139,11 @@ export default function Projects() {
 function ProjectCard({
   project,
   index,
+  onShowcase,
 }: {
   project: (typeof PROJECTS)[number];
   index: number;
+  onShowcase?: () => void;
 }) {
   const [expanded, setExpanded] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
@@ -220,6 +226,15 @@ function ProjectCard({
           </div>
 
           <div className="mt-4 flex items-center gap-3">
+            {onShowcase && (
+              <button
+                onClick={(e) => { e.stopPropagation(); onShowcase(); }}
+                className="flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-primary to-accent px-3 py-1.5 text-[11px] font-semibold text-white shadow-lg shadow-primary/10 transition-all hover:shadow-xl hover:shadow-primary/20"
+              >
+                <HiEye size={14} />
+                Showcase
+              </button>
+            )}
             {project.github_url && (
               <a
                 href={project.github_url}
